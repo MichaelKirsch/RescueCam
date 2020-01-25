@@ -26,10 +26,6 @@ int main() {
         }
 
     }
-
-
-
-    //fhafw
     sf::Clock cl;
     float timer =0;
     window.requestFocus();
