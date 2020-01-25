@@ -14,7 +14,7 @@ find_package(SFML 2.5.1 COMPONENTS system window graphics network audio REQUIRED
 include_directories("libs")
 include_directories("libs/glad/include/")
 
-add_executable(${PROJECT_NAME} ${SOURCES} main.cpp )
+add_executable(${PROJECT_NAME} ${SOURCES} src/main.cpp)
 
 
 target_link_libraries(${PROJECT_NAME} sfml-audio sfml-graphics sfml-window sfml-system glfw ${GLFW_LIBRARIES} ${OPENGL_LIBRARIES} )
