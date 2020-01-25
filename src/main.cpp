@@ -68,7 +68,7 @@ int main() {
             {
                 time_since_last_click =0.f;
                 mode++;
-                if(mode>modes.size())
+                if(mode>modes.size()-1)
                     mode=0;
             }
             if(digitalRead(2)==0 && time_since_last_click>0.5f)
