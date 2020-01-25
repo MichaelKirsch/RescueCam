@@ -6,8 +6,6 @@ int main() {
     window.create(sf::VideoMode::getDesktopMode(),"SearchCam",sf::Style::Fullscreen);
     window.setMouseCursorVisible(false);
     sf::RectangleShape rect;
-    sf::Text text;
-
     rect.setSize({50,50});
     rect.setPosition({50,50});
     rect.setFillColor({200,0,0});
