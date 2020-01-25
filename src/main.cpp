@@ -5,7 +5,7 @@
 #include <chrono>
 int main() {
     sf::RenderWindow window;
-    window.create(sf::VideoMode::getDesktopMode(),"SearchCam",sf::Style::Fullscreen);
+    window.create(sf::VideoMode(800,600),"SearchCam",sf::Style::Fullscreen);
     window.setMouseCursorVisible(false);
     sf::Text text;
     sf::Font font;
