@@ -10,7 +10,7 @@ int main() {
     window.setMouseCursorVisible(false);
     sf::Text text;
     sf::Font font;
-
+    //wtd
     std::string path_to_parent = std::experimental::filesystem::current_path().parent_path().string();
     auto path_font = path_to_parent+"/fonts/JetBrainsMono-Regular.ttf";
     font.loadFromFile(path_font);
