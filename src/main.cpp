@@ -44,7 +44,6 @@ int main() {
             {
                 window.draw(el);
             }
-            window.draw(text);
             window.display();
         }
         sf::Event ev;
