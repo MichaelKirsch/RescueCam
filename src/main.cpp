@@ -11,7 +11,7 @@ int main() {
     sf::Font font;
     std::string path_exec = std::experimental::filesystem::current_path().string();
     std::cout << path_exec << std::endl;
-    auto path_font = "../fonts/JetBrainsMono-Regular.ttf";
+    auto path_font = path_exec + "/fonts/JetBrainsMono-Regular.ttf";
     font.loadFromFile(path_font);
     text.setCharacterSize(0.05f*window.getSize().y);
     text.setFillColor(sf::Color::White);
