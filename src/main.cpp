@@ -1,11 +1,14 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <experimental/filesystem>
 #include <chrono>
 int main() {
     sf::RenderWindow window;
     window.create(sf::VideoMode::getDesktopMode(),"SearchCam",sf::Style::Fullscreen);
     window.setMouseCursorVisible(false);
     sf::Font font;
+    std::string path_to_file = std::experimental::filesystem::current_path().string() + "/fonts/JetBrainsMono-Regular.ttf";
+    font.loadFromFile(path_to_file);
     std::vector<sf::RectangleShape> rects;
     float tilesize_x = window.getSize().x/32;
     float tilesize_y = window.getSize().y/24;
