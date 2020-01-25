@@ -9,6 +9,7 @@ int main() {
     window.setMouseCursorVisible(false);
     sf::Text text;
     sf::Font font;
+    //ffff
     std::string path_exec = std::experimental::filesystem::current_path().string();
     std::cout << path_exec << std::endl;
     auto path_font = path_exec + "/fonts/JetBrainsMono-Regular.ttf";
