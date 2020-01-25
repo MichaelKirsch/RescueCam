@@ -5,10 +5,8 @@ int main() {
     sf::RenderWindow window;
     window.create(sf::VideoMode::getDesktopMode(),"SearchCam",sf::Style::Fullscreen);
     window.setMouseCursorVisible(false);
-    sf::RectangleShape rect;
-    rect.setSize({50,50});
-    rect.setPosition({50,50});
-    rect.setFillColor({200,0,0});
+    sf::Text text;
+    sf::Font font;
     std::vector<sf::RectangleShape> rects;
 
     float tilesize_x = window.getSize().x/32;
@@ -40,6 +38,10 @@ int main() {
         timer+=cl.restart().asSeconds();
         if(timer>1.f/60.f)
         {
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            {
+                window.close();
+            }
             timer = 0.f;
             window.clear();
             window.draw(cameraView);
@@ -53,10 +55,7 @@ int main() {
                 window.close();
             }
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-        {
-            window.close();
-        }
+
 
     }
     return 0;
