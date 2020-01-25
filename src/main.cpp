@@ -3,7 +3,8 @@
 #include <chrono>
 int main() {
     sf::RenderWindow window;
-    window.create(sf::VideoMode(800,600),"penis");
+    window.create(sf::VideoMode::getDesktopMode(),"penis",sf::Style::Fullscreen);
+    window.setMouseCursorVisible(false);
     sf::RectangleShape rect;
     rect.setSize({50,50});
     rect.setPosition({50,50});
