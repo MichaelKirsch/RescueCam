@@ -1,10 +1,24 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <experimental/filesystem>
+#include <wiringPi.h>
 #include <chrono>
 int main() {
+
+    wiringPiSetup ();
+    pinMode(0, INPUT);		// Configure GPIO0 as an output
+    pinMode(2, INPUT);		// Configure GPIO1 as an input
     sf::RenderWindow window;
     window.create(sf::VideoMode::getDesktopMode(),"SearchCam",sf::Style::Fullscreen);
+
+    std::vector<std::string> modes;
+
+    modes.push_back("Mode: Life Detector");
+    modes.push_back("Mode: Black equals Hot");
+    modes.push_back("Mode: White equals Hot");
+    modes.push_back("Mode: Temperature View");
+
+
     window.setMouseCursorVisible(false);
     float tilesize_x = window.getSize().x/32;
     float tilesize_y = window.getSize().y/24;
@@ -37,15 +51,34 @@ int main() {
     text.setFillColor(sf::Color::White);
     text.setPosition(0,0);
 
+    float time_since_last_click = 0.f;
+    int mode = 0;
     while(window.isOpen())
     {
-        timer+=cl.restart().asSeconds();
+        auto delta_time =  cl.restart().asSeconds();
+        timer+= delta_time;
+        time_since_last_click+=delta_time;
         if(timer>1.f/60.f)
         {
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             {
                 window.close();
             }
+            if(digitalRead(0)==0 && time_since_last_click>0.5f)
+            {
+                time_since_last_click =0.f;
+                mode++;
+                if(mode>modes.size())
+                    mode=0;
+            }
+            if(digitalRead(2)==0 && time_since_last_click>0.5f)
+            {
+                time_since_last_click =0.f;
+                mode--;
+                if(mode<0)
+                    mode=modes.size()-1;
+            }
+            text.setString(modes[mode]);
             timer = 0.f;
             window.clear();
             window.draw(cameraView);
