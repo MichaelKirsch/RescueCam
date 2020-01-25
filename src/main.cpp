@@ -7,7 +7,9 @@ int main() {
     window.create(sf::VideoMode::getDesktopMode(),"SearchCam",sf::Style::Fullscreen);
     window.setMouseCursorVisible(false);
     sf::Font font;
-    sf::Text text("Mode",font,0.05*window.getSize().y);
+    sf::Text text("Mode: Life Searcher",font,0.05*window.getSize().y);
+    text.setFillColor(sf::Color::White);
+    text.setPosition(0,0);
     std::string path_to_file = std::experimental::filesystem::current_path().string() + "/fonts/JetBrainsMono-Regular.ttf";
     font.loadFromFile(path_to_file);
     std::vector<sf::RectangleShape> rects;
