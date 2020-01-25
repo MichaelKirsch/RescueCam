@@ -6,17 +6,9 @@ int main() {
     sf::RenderWindow window;
     window.create(sf::VideoMode::getDesktopMode(),"SearchCam",sf::Style::Fullscreen);
     window.setMouseCursorVisible(false);
-    sf::Font font;
-    sf::Text text("Mode: Life Searcher",font,0.05*window.getSize().y);
-    text.setFillColor(sf::Color::White);
-    text.setPosition(0,0);
-    std::string path_to_file = std::experimental::filesystem::current_path().string() + "/fonts/JetBrainsMono-Regular.ttf";
-    font.loadFromFile(path_to_file);
-    std::vector<sf::RectangleShape> rects;
     float tilesize_x = window.getSize().x/32;
     float tilesize_y = window.getSize().y/24;
     sf::VertexArray cameraView(sf::Quads,32*24*4);
-    int counter =0;
     for(int x =0;x<32;x++)
     {
         for(int y = 0;y<24;y++)
@@ -37,6 +29,13 @@ int main() {
     sf::Clock cl;
     float timer =0;
     window.requestFocus();
+
+    sf::Font font;
+    std::string path_to_file = std::experimental::filesystem::current_path().string() + "/fonts/JetBrainsMono-Regular.ttf";
+    font.loadFromFile(path_to_file);
+    sf::Text text("Mode: Life Searcher",font,0.05*window.getSize().y);
+    text.setFillColor(sf::Color::White);
+    text.setPosition(0,0);
     while(window.isOpen())
     {
         timer+=cl.restart().asSeconds();
