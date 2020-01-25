@@ -1,10 +1,23 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <experimental/filesystem>
+#include <string>
 #include <chrono>
 int main() {
     sf::RenderWindow window;
     window.create(sf::VideoMode::getDesktopMode(),"SearchCam",sf::Style::Fullscreen);
     window.setMouseCursorVisible(false);
+    sf::Text text;
+    sf::Font font;
+    //th
+    std::string path_to_parent = std::experimental::filesystem::current_path().parent_path().string();
+    auto path_font = path_to_parent+"/fonts/JetBrainsMono-Regular.ttf";
+    font.loadFromFile(path_font);
+    text.setCharacterSize(0.05f*window.getSize().y);
+    text.setFillColor(sf::Color::White);
+    text.setPosition(0,0);
+    text.setString("Mode: Life-Search");
+    text.setFont(font);
     sf::RectangleShape rect;
     rect.setSize({50,50});
     rect.setPosition({50,50});
@@ -44,6 +57,7 @@ int main() {
             {
                 window.draw(el);
             }
+            window.draw(text);
             window.display();
         }
         sf::Event ev;
@@ -54,7 +68,10 @@ int main() {
                 window.close();
             }
         }
-
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        {
+            window.close();
+        }
 
     }
     return 0;
