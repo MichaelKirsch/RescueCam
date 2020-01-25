@@ -1,18 +1,14 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <experimental/filesystem>
 #include <string>
 #include <chrono>
 int main() {
     sf::RenderWindow window;
     window.create(sf::VideoMode::getDesktopMode(),"SearchCam",sf::Style::Fullscreen);
-    window.setVerticalSyncEnabled(false);
     window.setMouseCursorVisible(false);
     sf::Text text;
     sf::Font font;
-    //wtd
-    std::string path_to_parent = std::experimental::filesystem::current_path().parent_path().string();
-    auto path_font = path_to_parent+"/fonts/JetBrainsMono-Regular.ttf";
+    auto path_font = "../fonts/JetBrainsMono-Regular.ttf";
     font.loadFromFile(path_font);
     text.setCharacterSize(0.05f*window.getSize().y);
     text.setFillColor(sf::Color::White);
