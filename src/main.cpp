@@ -10,7 +10,7 @@ int main() {
     rect.setPosition({50,50});
     rect.setFillColor({200,0,0});
     std::vector<sf::RectangleShape> rects;
-
+    //hier
     float tilesize_x = window.getSize().x/32;
     float tilesize_y = window.getSize().y/24;
 
