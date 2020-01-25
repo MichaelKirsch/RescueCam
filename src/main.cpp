@@ -39,15 +39,15 @@ int main() {
         }
 
     }
-
-
-
-    //fhafw
     sf::Clock cl;
     float timer =0;
     window.requestFocus();
     while(window.isOpen())
     {
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+        {
+            window.close();
+        }
         timer+=cl.restart().asSeconds();
         if(timer>1.f/60.f)
         {
@@ -68,11 +68,6 @@ int main() {
                 window.close();
             }
         }
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-        {
-            window.close();
-        }
-
     }
     return 0;
 }
