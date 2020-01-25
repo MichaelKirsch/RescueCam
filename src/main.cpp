@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <chrono>
 int main() {
     sf::RenderWindow window;
     window.create(sf::VideoMode(800,600),"penis");
@@ -16,7 +17,6 @@ int main() {
     {
         for(int y = 0;y<24;y++)
         {
-            //F
             sf::RectangleShape buffer;
             buffer.setSize({tilesize_x,tilesize_y});
             buffer.setPosition(x*tilesize_x,y*tilesize_y);
@@ -28,15 +28,16 @@ int main() {
 
 
 
-
+    //fhafw
     sf::Clock cl;
-    float time =0;
+    float timer =0;
+    window.requestFocus();
     while(window.isOpen())
     {
-        time+=cl.restart().asSeconds();
-        if(time>1.f/60.f)
+        timer+=cl.restart().asSeconds();
+        if(timer>1.f/60.f)
         {
-            time = 0.f;
+            timer = 0.f;
             window.clear();
             for(auto el:rects)
             {
