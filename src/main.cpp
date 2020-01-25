@@ -49,6 +49,7 @@ int main() {
             timer = 0.f;
             window.clear();
             window.draw(cameraView);
+            window.draw(text);
             window.display();
         }
         sf::Event ev;
