@@ -94,7 +94,6 @@ int main() {
                 mode++;
                 if(mode>modes.size()-1)
                     mode=0;
-                changeMode(mode,cameraView,tilesize_x,tilesize_y);
             }
             if(digitalRead(2)==0 && time_since_last_click>0.5f)
             {
@@ -102,10 +101,11 @@ int main() {
                 mode--;
                 if(mode<0)
                     mode=modes.size()-1;
-                changeMode(mode,cameraView,tilesize_x,tilesize_y);
+
             }
             text.setString(modes[mode]);
             timer = 0.f;
+            changeMode(mode,cameraView,tilesize_x,tilesize_y);
             window.clear();
             window.draw(cameraView);
             window.draw(text);
