@@ -5,10 +5,8 @@ int main() {
     sf::RenderWindow window;
     window.create(sf::VideoMode::getDesktopMode(),"SearchCam",sf::Style::Fullscreen);
     window.setMouseCursorVisible(false);
-    sf::Text text;
     sf::Font font;
     std::vector<sf::RectangleShape> rects;
-
     float tilesize_x = window.getSize().x/32;
     float tilesize_y = window.getSize().y/24;
     sf::VertexArray cameraView(sf::Quads,32*24*4);
