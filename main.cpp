@@ -16,6 +16,7 @@ int main() {
     {
         for(int y = 0;y<24;y++)
         {
+            //F
             sf::RectangleShape buffer;
             buffer.setSize({tilesize_x,tilesize_y});
             buffer.setPosition(x*tilesize_x,y*tilesize_y);
