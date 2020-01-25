@@ -8,7 +8,7 @@ int main() {
     sf::RectangleShape rect;
     sf::Text text;
     sf::Font font;
-    text.setCharacterSize(0.05f*window.getSize().y);
+
     rect.setSize({50,50});
     rect.setPosition({50,50});
     rect.setFillColor({200,0,0});
