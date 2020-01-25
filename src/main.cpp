@@ -3,6 +3,45 @@
 #include <experimental/filesystem>
 #include <wiringPi.h>
 #include <chrono>
+
+
+void changeMode(int mode, sf::VertexArray& array, float tile_x,float tile_y)
+{
+    sf::Color bucol;
+
+    for(int x =0;x<32;x++)
+    {
+        for(int y = 0;y<24;y++)
+        {
+            int pos = ((x*24)+y)*4;
+            array[pos].position = sf::Vector2f(x*tile_x, y*tile_y);
+            array[pos+1].position = sf::Vector2f((x+1)*tile_x, y*tile_y);
+            array[pos+2].position = sf::Vector2f((x+1)*tile_x, (y+1)*tile_y);
+            array[pos+3].position = sf::Vector2f(x*tile_x, (y+1)*tile_y);
+            switch (mode)
+            {
+                case 0:
+                    bucol = {(sf::Uint8)(255),(sf::Uint8)(0),(sf::Uint8)(rand()%255)};
+                    break;
+                case 1:
+                    bucol = {(sf::Uint8)(rand()%255),(sf::Uint8)(rand()%255),(sf::Uint8)(rand()%255)};
+                    break;
+                case 2:
+                    bucol = {(sf::Uint8)(rand()%100),(sf::Uint8)(rand()%100),(sf::Uint8)(rand()%100)};
+                    break;
+                default:
+                    bucol = sf::Color::Magenta;
+                    break;
+            }
+            array[pos].color = bucol;
+            array[pos+1].color = bucol;
+            array[pos+2].color = bucol;
+            array[pos+3].color = bucol;
+        }
+    }
+}
+
+
 int main() {
 
     wiringPiSetup ();
@@ -12,7 +51,7 @@ int main() {
     window.create(sf::VideoMode::getDesktopMode(),"SearchCam",sf::Style::Fullscreen);
 
     std::vector<std::string> modes;
-
+    int mode = 0;
     modes.push_back("Mode: Life Detector");
     modes.push_back("Mode: Black equals Hot");
     modes.push_back("Mode: White equals Hot");
@@ -23,22 +62,7 @@ int main() {
     float tilesize_x = window.getSize().x/32;
     float tilesize_y = window.getSize().y/24;
     sf::VertexArray cameraView(sf::Quads,32*24*4);
-    for(int x =0;x<32;x++)
-    {
-        for(int y = 0;y<24;y++)
-        {
-            int pos = ((x*24)+y)*4;
-            cameraView[pos].position = sf::Vector2f(x*tilesize_x, y*tilesize_y);
-            cameraView[pos+1].position = sf::Vector2f((x+1)*tilesize_x, y*tilesize_y);
-            cameraView[pos+2].position = sf::Vector2f((x+1)*tilesize_x, (y+1)*tilesize_y);
-            cameraView[pos+3].position = sf::Vector2f(x*tilesize_x, (y+1)*tilesize_y);
-            sf::Color bucol = {(sf::Uint8)(rand()%255),(sf::Uint8)(rand()%255),(sf::Uint8)(rand()%255)};
-            cameraView[pos].color = bucol;
-            cameraView[pos+1].color = bucol;
-            cameraView[pos+2].color = bucol;
-            cameraView[pos+3].color = bucol;
-        }
-    }
+    changeMode(mode,cameraView,tilesize_x,tilesize_y);
 
     sf::Clock cl;
     float timer =0;
@@ -52,7 +76,7 @@ int main() {
     text.setPosition(0,0);
 
     float time_since_last_click = 0.f;
-    int mode = 0;
+
     while(window.isOpen())
     {
         auto delta_time =  cl.restart().asSeconds();
@@ -70,6 +94,7 @@ int main() {
                 mode++;
                 if(mode>modes.size()-1)
                     mode=0;
+                changeMode(mode,cameraView,tilesize_x,tilesize_y);
             }
             if(digitalRead(2)==0 && time_since_last_click>0.5f)
             {
@@ -77,6 +102,7 @@ int main() {
                 mode--;
                 if(mode<0)
                     mode=modes.size()-1;
+                changeMode(mode,cameraView,tilesize_x,tilesize_y);
             }
             text.setString(modes[mode]);
             timer = 0.f;
