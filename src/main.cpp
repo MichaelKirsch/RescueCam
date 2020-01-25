@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <string>
+#include <experimental/filesystem>
 #include <chrono>
 int main() {
     sf::RenderWindow window;
@@ -8,6 +9,8 @@ int main() {
     window.setMouseCursorVisible(false);
     sf::Text text;
     sf::Font font;
+    std::string path_exec = std::experimental::filesystem::current_path().string();
+    std::cout << path_exec << std::endl;
     auto path_font = "../fonts/JetBrainsMono-Regular.ttf";
     font.loadFromFile(path_font);
     text.setCharacterSize(0.05f*window.getSize().y);
