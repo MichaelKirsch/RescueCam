@@ -116,7 +116,7 @@ int main() {
             infile.open ("/home/pi/Rescuecam/RescueCam/py-files/heatmap.txt");
             while(infile>>part)
             {
-                data.pop_back();
+                part.pop_back();
                 data.emplace_back(std::stof(part));
             }
             infile.close();
