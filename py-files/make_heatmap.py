@@ -14,17 +14,12 @@ frame = [0] * 768
 while True:
     try:
         mlx.getFrame(frame)
+        filename = "newfile.txt"
+        myfile = open(filename, 'w')
+        myfile.write(frame)
+        myfile.close()
     except ValueError:
-        # these happen, no biggie - retry
         continue
 
-    filename = "newfile.txt"
 
-    # Open the file with writing permission
-    myfile = open(filename, 'w')
 
-# Write a line to the file
-    myfile.write(frame)
-
-# Close the file
-    myfile.close()
