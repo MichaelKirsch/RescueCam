@@ -112,7 +112,11 @@ int main() {
             if(!camera.I2C_success())
                 text.setString("Failed to load Camera");
             else
-                text.setString(camera.convertToString(camera.readRegister8(0x041F))+"|"+std::to_string(camera.getFileHandle()));
+            {
+                auto buffer = camera.readRegister8(0x041F);
+                text.setString(camera.convertToString(buffer) +"|"+std::to_string(buffer) +"|"+std::to_string(camera.getFileHandle()));
+            }
+
             timer = 0.f;
             changeMode(mode,cameraView,tilesize_x,tilesize_y);
             window.clear();
