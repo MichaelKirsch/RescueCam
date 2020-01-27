@@ -111,12 +111,15 @@ int main() {
             }
             //text.setString(modes[mode]);
             std::string data;
+            std::string part;
             std::ifstream infile;
             infile.open ("/home/pi/Rescuecam/RescueCam/py-files/heatmap.txt");
-            infile>>data;
+            while(infile>>part)
+            {
+                data+=part;
+            }
             infile.close();
-            text.setString(std::to_string(data.size())+"|"+data);
-
+            text.setString(std::to_string(data.size())+"|"+data.substr(0,20));
             timer = 0.f;
             changeMode(mode,cameraView,tilesize_x,tilesize_y);
             window.clear();
