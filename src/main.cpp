@@ -68,7 +68,6 @@ int main() {
     float tilesize_x = window.getSize().x/32;
     float tilesize_y = window.getSize().y/24;
     sf::VertexArray cameraView(sf::Quads,32*24*4);
-    changeMode(mode,cameraView,tilesize_x,tilesize_y);
 
     sf::Clock cl;
     float timer =0;
