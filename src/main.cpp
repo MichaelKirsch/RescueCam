@@ -3,6 +3,7 @@
 #include <experimental/filesystem>
 #include "wiringPi.h"
 #include "ThermalCamera.h"
+#include <fstream>
 #include <chrono>
 
 
@@ -113,8 +114,12 @@ int main() {
                 text.setString("Failed to load Camera");
             else
             {
-                auto buffer = camera.readRegister16(0x041F);
-                text.setString(std::to_string(camera.readRegister16(0x8000)) +"|"+std::to_string(buffer) +"|"+std::to_string(camera.getFileHandle()));
+                std::string data;
+                std::ifstream infile;
+                infile.open ("../py-files/heatmap.txt");
+                infile>>data;
+                infile.close();
+                text.setString(std::to_string(data.size())+"|"+data.substr(0,data.size()*0.01));
             }
 
             timer = 0.f;
