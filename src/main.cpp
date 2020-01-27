@@ -78,7 +78,7 @@ int main() {
     font.loadFromFile("/home/pi/Rescuecam/RescueCam/fonts/JetBrainsMono-Regular.ttf");
     sf::Text text("Mode: Life Searcher",font,0.05*window.getSize().y);
     text.setFillColor(sf::Color::White);
-    text.setPosition(0,0);
+    text.setPosition(window.getSize().x*0.03,window.getSize().y*0.03);
 
     float time_since_last_click = 0.f;
 
