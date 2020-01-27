@@ -110,17 +110,12 @@ int main() {
 
             }
             //text.setString(modes[mode]);
-            if(!camera.I2C_success())
-                text.setString("Failed to load Camera");
-            else
-            {
-                std::string data;
-                std::ifstream infile;
-                infile.open ("../py-files/heatmap.txt");
-                infile>>data;
-                infile.close();
-                text.setString(std::to_string(data.size())+"|"+data.substr(0,data.size()*0.01));
-            }
+            std::string data;
+            std::ifstream infile;
+            infile.open ("/home/pi/Rescuecam/RescueCam/py-files/heatmap.txt");
+            infile>>data;
+            infile.close();
+            text.setString(std::to_string(data.size())+"|"+data.substr(0,data.size()*0.01));
 
             timer = 0.f;
             changeMode(mode,cameraView,tilesize_x,tilesize_y);
