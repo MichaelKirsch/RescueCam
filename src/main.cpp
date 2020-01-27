@@ -7,7 +7,7 @@
 #include <chrono>
 
 
-void changeMode(int mode, sf::VertexArray& array, float tile_x,float tile_y)
+void changeMode(int mode, sf::VertexArray& array,std::vector<float>& data, float tile_x,float tile_y)
 {
     sf::Color bucol;
 
@@ -23,7 +23,7 @@ void changeMode(int mode, sf::VertexArray& array, float tile_x,float tile_y)
             switch (mode)
             {
                 case 0:
-                    bucol = {(sf::Uint8)(255),(sf::Uint8)(0),(sf::Uint8)(rand()%255)};
+                    bucol = {(sf::Uint8)(data[(x*24)+y]*4),(sf::Uint8)(0),(sf::Uint8)(0)};
                     break;
                 case 1:
                     bucol = {(sf::Uint8)(rand()%255),(sf::Uint8)(rand()%255),(sf::Uint8)(rand()%255)};
@@ -52,7 +52,7 @@ int main() {
 
     ThermalCamera camera;
 
-
+    std::vector<float> data;
     sf::RenderWindow window;
     window.create(sf::VideoMode::getDesktopMode(),"SearchCam",sf::Style::Fullscreen);
 
@@ -110,18 +110,20 @@ int main() {
 
             }
             //text.setString(modes[mode]);
-            std::string data;
+            data.clear();
+            data.reserve(768);
             std::string part;
             std::ifstream infile;
             infile.open ("/home/pi/Rescuecam/RescueCam/py-files/heatmap.txt");
             while(infile>>part)
             {
-                data+=part;
+                data.pop_back();
+                data.emplace_back(std::stof(part));
             }
             infile.close();
-            text.setString(std::to_string(data.size())+"|"+data.substr(0,20));
+            text.setString(modes[mode]);
             timer = 0.f;
-            changeMode(mode,cameraView,tilesize_x,tilesize_y);
+            changeMode(mode,cameraView,data,tilesize_x,tilesize_y);
             window.clear();
             window.draw(cameraView);
             window.draw(text);
