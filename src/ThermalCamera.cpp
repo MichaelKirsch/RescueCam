@@ -26,3 +26,35 @@ int16_t ThermalCamera::readRegister16(int reg) {
     return wiringPiI2CReadReg16(filehandle,  reg) ;
 }
 
+std::string ThermalCamera::convertToString(int16_t value) {
+    std::string buf;
+    // continously divide the integer by 2, if there is no remainder, the bit is 1, else it's 0
+    for (int i = (sizeof(value)*8)-1; i >= 0 ; i--)
+    {
+        int16_t mask = 0;
+        mask = 1 << i;
+        std::cout << mask << std::endl;
+        if((value & mask) == mask)
+            buf+=std::to_string(1);
+        else
+            buf+=std::to_string(0);
+    }
+    return buf;
+}
+
+std::string ThermalCamera::convertToString(int8_t value) {
+    std::string buf;
+    // continously divide the integer by 2, if there is no remainder, the bit is 1, else it's 0
+    for (int i = (sizeof(value)*8)-1; i >= 0 ; i--)
+    {
+        int16_t mask = 0;
+        mask = 1 << i;
+        std::cout << mask << std::endl;
+        if((value & mask) == mask)
+            buf+=std::to_string(1);
+        else
+            buf+=std::to_string(0);
+    }
+    return buf;
+}
+
