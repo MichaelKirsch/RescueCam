@@ -109,7 +109,10 @@ int main() {
 
             }
             //text.setString(modes[mode]);
-            text.setString(std::to_string(camera.readRegister8(0x800D)));
+            if(!camera.I2C_success())
+                text.setString("scheis i2c");
+            else
+                text.setString(std::to_string(camera.readRegister16(0x8000)));
             timer = 0.f;
             changeMode(mode,cameraView,tilesize_x,tilesize_y);
             window.clear();
