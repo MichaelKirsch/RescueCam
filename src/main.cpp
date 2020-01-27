@@ -1,7 +1,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <experimental/filesystem>
-#include <wiringPi.h>
+#include "wiringPi.h"
+#include "ThermalCamera.h"
 #include <chrono>
 
 
@@ -47,6 +48,10 @@ int main() {
     wiringPiSetup ();
     pinMode(0, INPUT);		// Configure GPIO0 as an output
     pinMode(2, INPUT);		// Configure GPIO1 as an input
+
+    ThermalCamera camera;
+
+
     sf::RenderWindow window;
     window.create(sf::VideoMode::getDesktopMode(),"SearchCam",sf::Style::Fullscreen);
 
@@ -103,7 +108,8 @@ int main() {
                     mode=modes.size()-1;
 
             }
-            text.setString(modes[mode]);
+            //text.setString(modes[mode]);
+            text.setString(std::to_string(camera.readRegister(0x8000)));
             timer = 0.f;
             changeMode(mode,cameraView,tilesize_x,tilesize_y);
             window.clear();
