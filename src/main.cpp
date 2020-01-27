@@ -109,7 +109,7 @@ int main() {
 
             }
             //text.setString(modes[mode]);
-            text.setString(getBits8(camera.readRegister8(0x0403)));
+            text.setString(std::to_string(camera.readRegister8(0x800D)));
             timer = 0.f;
             changeMode(mode,cameraView,tilesize_x,tilesize_y);
             window.clear();

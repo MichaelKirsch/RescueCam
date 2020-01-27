@@ -2,7 +2,6 @@
 
 #include "wiringPiI2C.h"
 #include <stdint-gcc.h>
-#include "BitReadStuff.h"
 #include <string>
 
 class ThermalCamera {
