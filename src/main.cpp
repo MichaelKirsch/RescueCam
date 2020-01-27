@@ -110,9 +110,9 @@ int main() {
             }
             //text.setString(modes[mode]);
             if(!camera.I2C_success())
-                text.setString("scheis i2c");
+                text.setString("Failed to load Camera");
             else
-                text.setString(camera.convertToString(camera.readRegister16(0x800D)));
+                text.setString(camera.convertToString(camera.readRegister16(0x800F)));
             timer = 0.f;
             changeMode(mode,cameraView,tilesize_x,tilesize_y);
             window.clear();
