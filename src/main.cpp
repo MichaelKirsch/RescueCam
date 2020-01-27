@@ -115,7 +115,7 @@ int main() {
             infile.open ("/home/pi/Rescuecam/RescueCam/py-files/heatmap.txt");
             infile>>data;
             infile.close();
-            text.setString(std::to_string(data.size())+"|"+data.substr(0,data.size()*0.01));
+            text.setString(std::to_string(data.size())+"|"+data);
 
             timer = 0.f;
             changeMode(mode,cameraView,tilesize_x,tilesize_y);
