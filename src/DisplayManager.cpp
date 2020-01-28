@@ -18,7 +18,6 @@ DisplayManager::DisplayManager():camera(0x33,ThermalCamera::REFRESH_RATE::HZ_16)
     modeText.setPosition(m_window.getSize().x*0.04f,m_window.getSize().y*0.04f);
     modeText.setCharacterSize(m_window.getSize().y*0.03f);
     modeText.setFillColor(sf::Color::White);
-    m_window.setMouseCursorVisible(false);
 }
 
 void DisplayManager::updateInputs(float elapsed) {
