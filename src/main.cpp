@@ -109,8 +109,8 @@ int main() {
 
             }
             //text.setString(modes[mode]);
-            data=camera.getTemps();
-            text.setString(modes[mode]+"|"+std::to_string(data[0]));
+            //data=camera.getTemps();
+            text.setString(modes[mode]);
             timer = 0.f;
             changeMode(mode,cameraView,data,tilesize_x,tilesize_y);
             window.clear();

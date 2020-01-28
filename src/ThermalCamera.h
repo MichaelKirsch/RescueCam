@@ -15,8 +15,6 @@ public:
     int getRefreshRate();
     void getFrame();
     std::vector<float>& getTemps();
-
-
 private:
     paramsMLX90640 mlx90640;
     std::vector<float> m_temperatureVector;
@@ -25,7 +23,6 @@ private:
     float image[768];
     uint16_t data[768* sizeof(float)];
     float temperatureArray[768];
-
     float eTa;
     float emissivity = 1;
     uint8_t m_adress;
