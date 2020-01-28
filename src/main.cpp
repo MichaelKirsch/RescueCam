@@ -100,7 +100,7 @@ int main() {
         auto delta_time =  cl.restart().asSeconds();
         timer+= delta_time;
         time_since_last_click+=delta_time;
-        if(timer>1.f/8.f)
+        if(timer>1.f/16.f)
         {
             timer = 0.f;
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
