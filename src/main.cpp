@@ -53,6 +53,7 @@ int main() {
     ThermalCamera camera(0x33,ThermalCamera::REFRESH_RATE::HZ_8);
 
     std::vector<float> data;
+    data.reserve(800);
     sf::RenderWindow window;
     window.create(sf::VideoMode::getDesktopMode(),"SearchCam",sf::Style::Fullscreen);
 
@@ -62,6 +63,8 @@ int main() {
     modes.push_back("Mode: Black equals Hot");
     modes.push_back("Mode: White equals Hot");
     modes.push_back("Mode: Temperature View");
+
+
 
 
     window.setMouseCursorVisible(false);
@@ -126,8 +129,6 @@ int main() {
                 window.close();
             }
         }
-
-
     }
     return 0;
 }
