@@ -70,6 +70,7 @@ void DisplayManager::updateDisplay(float elapsed) {
                 m_vertexArray[pos + 1].color = m_processedFrame[counter];
                 m_vertexArray[pos + 2].color = m_processedFrame[counter];
                 m_vertexArray[pos + 3].color = m_processedFrame[counter];
+                counter++;
             }
         }
         display_timer = 0.f;
