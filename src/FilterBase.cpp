@@ -114,22 +114,24 @@ std::vector<sf::Color> FilterBase::whole_spektrum(std::vector<float> &to_filter)
 
     for(auto element:to_filter)
     {
-        if(element<0.0)
-            buffer.emplace_back(sf::Color(0,0,0));
-        if(element>0.0&&element<10.f)
-            buffer.emplace_back(sf::Color(55, 52, 235));
-        if(element>10.0&&element<15.f)
-            buffer.emplace_back(sf::Color(44, 110, 232));
-        if(element>15.0&&element<20.f)
-            buffer.emplace_back(sf::Color(179, 44, 232));
-        if(element>20.0&&element<25.f)
-            buffer.emplace_back(sf::Color(232, 44, 78));
-        if(element>25.0&&element<30.f)
-            buffer.emplace_back(sf::Color(232, 172, 44));
-        if(element>35.0&&element<40.f)
-            buffer.emplace_back(sf::Color(232, 226, 44));
-        if(element>40.f)
-            buffer.emplace_back(sf::Color(255,255,255));
+        if(element>29)
+             buffer.emplace_back(sf::Color(255,255,255));
+        else if(element>27)
+             buffer.emplace_back(sf::Color(223, 232, 44));
+        else if(element>26)
+             buffer.emplace_back(sf::Color(232, 191, 44));
+        else if(element>25)
+             buffer.emplace_back(sf::Color(232, 191, 44));
+        else if(element>24)
+             buffer.emplace_back(sf::Color(232, 191, 44));
+        else if(element>23)
+             buffer.emplace_back(sf::Color(232, 44, 144));
+        else if(element>22)
+             buffer.emplace_back(sf::Color(185, 44, 232));
+        else if(element>21)
+            buffer.emplace_back(sf::Color(110, 44, 232));
+        else
+            buffer.emplace_back(sf::Color(44, 47, 232));
     }
     filter_info = "Mode: Spektrum | max:" + std::to_string(highest_temp)+" min:"+std::to_string(lowest_temp);
     return buffer;
