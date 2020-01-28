@@ -11,4 +11,5 @@ add_executable(${PROJECT_NAME} ${SCRS_FILES})
 
 find_package(SFML 2.5.1 COMPONENTS system window graphics REQUIRED)
 find_library(wiringPi_LIB wiringPi)
-target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system ${wiringPi_LIB})
+find_library( bcm2835_lib bcm2835 )
+target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system ${wiringPi_LIB} ${bcm2835_lib})
