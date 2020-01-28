@@ -112,7 +112,7 @@ int main() {
 
             }
             //text.setString(modes[mode]);
-            //data=camera.getTemps();
+            data=camera.getTemps();
             text.setString(modes[mode]);
             timer = 0.f;
             changeMode(mode,cameraView,data,tilesize_x,tilesize_y);
