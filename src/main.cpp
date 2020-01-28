@@ -112,8 +112,9 @@ int main() {
 
             }
             //text.setString(modes[mode]);
+            data.clear();
             data=camera.getTemps();
-            text.setString(modes[mode]);
+            text.setString(modes[mode]+"|"+std::to_string(data.size()));
             timer = 0.f;
             changeMode(mode,cameraView,data,tilesize_x,tilesize_y);
             window.clear();
