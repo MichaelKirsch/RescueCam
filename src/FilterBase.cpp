@@ -44,8 +44,7 @@ std::vector<sf::Color> FilterBase::life_finder(std::vector<float> &to_filter) {
             buffer.emplace_back(sf::Color::Black);
         }
     }
-    filter_info = "Mode: Life-Finder ("+std::to_string(lower_end)+"|"+std::to_string(high_end)+") max:"+
-            std::to_string(highest_temp)+" min:"+std::to_string(lowest_temp);
+    filter_info = "Mode: Life-Finder | max:"+std::to_string(highest_temp)+" min:"+std::to_string(lowest_temp);
     return buffer;
 }
 
