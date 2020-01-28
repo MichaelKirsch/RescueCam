@@ -1,7 +1,6 @@
 #pragma once
 
-#include "MLX90640_API.h"
-#include <iostream>
+#include "mlx90640/MLX90640_API.h"
 #include <vector>
 #include <cstdint>
 #include <cstring>
