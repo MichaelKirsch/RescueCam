@@ -18,7 +18,6 @@
 
 #define _MLX640_API_H_
 
-#include <stdint.h>
   typedef struct
     {
         int16_t kVdd;
@@ -74,3 +73,4 @@
     int MLX90640_GetFrameData(uint8_t slaveAddr, uint16_t *frameData);
     int MLX90640_InterpolateOutliers(uint16_t *frameData, uint16_t *eepromData);
 
+#endif
