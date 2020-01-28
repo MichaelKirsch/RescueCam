@@ -1,8 +1,9 @@
 #pragma once
 
-#include "MLX90640_API.h"
+
 #include <vector>
 #include <cstdint>
+#include "MLX90640_API.h"
 #include <cstring>
 
 class ThermalCamera {
