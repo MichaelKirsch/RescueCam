@@ -1,10 +1,11 @@
 #pragma once
 
 #include "mlx90640/MLX90640_API.h"
-#include <stdint-gcc.h>
 #include <string>
 #include <iostream>
 #include <vector>
+#include <cstdint>
+#include <cstring>
 
 class ThermalCamera {
 public:
