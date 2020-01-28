@@ -114,15 +114,29 @@ std::vector<sf::Color> FilterBase::whole_spektrum(std::vector<float> &to_filter)
 
     for(auto element:to_filter)
     {
-        float perc = 1.f/delta*(element-lowest_temp);
-        buffer.emplace_back(sf::Color(0*perc,255*perc,0*perc));
+        if(element<0.0)
+            buffer.emplace_back(sf::Color(0,0,0));
+        if(element>0.0&&element<10.f)
+            buffer.emplace_back(sf::Color(55, 52, 235));
+        if(element>10.0&&element<15.f)
+            buffer.emplace_back(sf::Color(44, 110, 232));
+        if(element>15.0&&element<20.f)
+            buffer.emplace_back(sf::Color(179, 44, 232));
+        if(element>20.0&&element<25.f)
+            buffer.emplace_back(sf::Color(232, 44, 78));
+        if(element>25.0&&element<30.f)
+            buffer.emplace_back(sf::Color(232, 172, 44));
+        if(element>35.0&&element<40.f)
+            buffer.emplace_back(sf::Color(232, 226, 44));
+        if(element>40.f)
+            buffer.emplace_back(sf::Color(255,255,255));
     }
     filter_info = "Mode: Spektrum | max:" + std::to_string(highest_temp)+" min:"+std::to_string(lowest_temp);
     return buffer;
 }
 
 void FilterBase::nextFilter() {
-    if(mode<4)
+    if(mode<3)
         mode++;
     else
         mode=0;
