@@ -95,6 +95,7 @@ int main() {
         time_since_last_click+=delta_time;
         if(timer>1.f/8.f)
         {
+            timer = 0.f;
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             {
                 window.close();
@@ -122,9 +123,11 @@ int main() {
                 text.setString(modes[mode]+"|"+std::to_string(data.size()));
             }
             else
+            {
                 text.setString(modes[mode]+"|"+"Fail");
+                std::cout << "fail" << std::endl;
+            }
 
-            timer = 0.f;
             changeMode(mode,cameraView,data,tilesize_x,tilesize_y);
             window.clear();
             window.draw(cameraView);
