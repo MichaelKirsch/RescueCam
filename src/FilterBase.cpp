@@ -130,7 +130,7 @@ void FilterBase::nextFilter() {
 
 void FilterBase::lastFilter() {
     if(mode>0)
-        mode++;
+        mode--;
     else
         mode=3;
 }

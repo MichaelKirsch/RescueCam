@@ -54,8 +54,8 @@ void DisplayManager::run() {
 
 void DisplayManager::updateDisplay(float elapsed) {
     display_timer+=elapsed;
-    const int tile_x = m_window.getSize().x/32;
-    const int tile_y = m_window.getSize().y/24;
+    float tile_x = m_window.getSize().x/32.f;
+    float tile_y = m_window.getSize().y/24.f;
     int counter =0;
     if(display_timer>1.f/framerateDisplay)
     {
