@@ -53,7 +53,7 @@ int main() {
     pinMode(0, INPUT);		// Configure GPIO0 as an output
     pinMode(2, INPUT);		// Configure GPIO1 as an input
 
-    ThermalCamera camera(0x33,ThermalCamera::REFRESH_RATE::HZ_8);
+    ThermalCamera camera(0x33,ThermalCamera::REFRESH_RATE::HZ_16);
 
     std::vector<float> data;
     data.reserve(800);
