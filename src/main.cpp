@@ -23,15 +23,17 @@ void changeMode(int mode, sf::VertexArray& array,std::vector<float>& data, float
             switch (mode)
             {
                 case 0:
-                    if(data[(x*24)+y]>30.f && data[(x*24)+y]<40.f)
+                    float low_end = 25.f;
+                    float high_end = 40.f;
+                    if(data[(x*24)+y]>low_end && data[(x*24)+y]<high_end)
                     {
                         float temp =data[(x*24)+y];
-                        temp-=30.f;
-                        temp*=10.f;
-                        temp/=100.f;
-                        if (temp<0.0f)
-                            temp=0.f;
-                        bucol = {(sf::Uint8)(temp*255),(sf::Uint8)(temp*255),(sf::Uint8)(temp*255)};
+                        float delta = high_end-low_end;
+                        temp-=low_end;
+                        float perc = (1.f/delta)*temp;
+                        if (perc<0.f)
+                            perc=0.f;
+                        bucol = {(sf::Uint8)(100+(154*perc)),(sf::Uint8)(100+(154*perc)),(sf::Uint8)(100+(154*perc))};
                     }
 
                     else
