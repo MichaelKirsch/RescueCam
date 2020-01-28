@@ -44,20 +44,25 @@ int ThermalCamera::getRefreshRate() {
     return MLX90640_GetRefreshRate(m_adress);
 }
 
-void ThermalCamera::getFrame() {
-    MLX90640_GetFrameData(m_adress, frameData);
-    eTa = MLX90640_GetTa(frameData, &mlx90640);
-    subpage = MLX90640_GetSubPageNumber(frameData);
-    MLX90640_CalculateTo(frameData, &mlx90640, emissivity, eTa, temperatureArray);
-    MLX90640_BadPixelsCorrection((&mlx90640)->brokenPixels, temperatureArray, 1, &mlx90640);
-    MLX90640_BadPixelsCorrection((&mlx90640)->outlierPixels, temperatureArray, 1, &mlx90640);
-    m_temperatureVector.clear();
-    for(int x = 0; x < 32; x++){
-        for(int y = 0; y < 24; y++){
-            float val = temperatureArray[32 * (23-y) + x];
-            m_temperatureVector.emplace_back(val);
+bool ThermalCamera::getFrame() {
+
+    if(MLX90640_GetFrameData(m_adress, frameData))
+    {
+        eTa = MLX90640_GetTa(frameData, &mlx90640);
+        subpage = MLX90640_GetSubPageNumber(frameData);
+        MLX90640_CalculateTo(frameData, &mlx90640, emissivity, eTa, temperatureArray);
+        MLX90640_BadPixelsCorrection((&mlx90640)->brokenPixels, temperatureArray, 1, &mlx90640);
+        MLX90640_BadPixelsCorrection((&mlx90640)->outlierPixels, temperatureArray, 1, &mlx90640);
+        m_temperatureVector.clear();
+        for(int x = 0; x < 32; x++) {
+            for (int y = 0; y < 24; y++) {
+                float val = temperatureArray[32 * (23 - y) + x];
+                m_temperatureVector.emplace_back(val);
+            }
+        }
+        return true;
     }
-}
+    return false;
 }
 
 std::vector<float> &ThermalCamera::getTemps() {

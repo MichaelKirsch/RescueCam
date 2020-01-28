@@ -13,7 +13,7 @@ public:
     };
     ThermalCamera(uint8_t adress, REFRESH_RATE rr);
     int getRefreshRate();
-    void getFrame();
+    bool getFrame();
     std::vector<float>& getTemps();
 private:
     paramsMLX90640 mlx90640;
