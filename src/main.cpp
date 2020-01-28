@@ -115,8 +115,13 @@ int main() {
             data.clear();
             std::vector<float> buf = camera.getTemps();
             if(buf.size()==768)
+            {
                 data=camera.getTemps();
-            text.setString(modes[mode]+"|"+std::to_string(data.size()));
+                text.setString(modes[mode]+"|"+std::to_string(data.size()));
+            }
+            else
+                text.setString(modes[mode]+"|"+"Fail");
+
             timer = 0.f;
             changeMode(mode,cameraView,data,tilesize_x,tilesize_y);
             window.clear();
