@@ -14,8 +14,10 @@ public:
     ThermalCamera(uint8_t adress, REFRESH_RATE rr);
     int getRefreshRate();
     bool getFrame();
+    bool getSuccess(){ return m_success;};
     std::vector<float>& getTemps();
 private:
+    bool m_success;
     paramsMLX90640 mlx90640;
     std::vector<float> m_temperatureVector;
     uint16_t eepromCamera[832];

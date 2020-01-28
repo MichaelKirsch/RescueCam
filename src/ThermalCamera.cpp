@@ -45,8 +45,13 @@ int ThermalCamera::getRefreshRate() {
 }
 
 bool ThermalCamera::getFrame() {
+    m_success = false;
     int x = MLX90640_GetFrameData(m_adress, frameData);
-    if(x!=-1 || x!=-8)
+    if(x==-1 || x == -8)
+    {
+        return false;
+    }
+    else
     {
         eTa = MLX90640_GetTa(frameData, &mlx90640);
         subpage = MLX90640_GetSubPageNumber(frameData);
@@ -60,14 +65,13 @@ bool ThermalCamera::getFrame() {
                 m_temperatureVector.emplace_back(val);
             }
         }
+        m_success = true;
         return true;
     }
-    else
-        return false;
+
 }
 
 std::vector<float> &ThermalCamera::getTemps() {
-    this->getFrame();
     return m_temperatureVector;
 }
 

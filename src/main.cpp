@@ -115,9 +115,8 @@ int main() {
 
             }
             //text.setString(modes[mode]);
-            data.clear();
-            std::vector<float> buf = camera.getTemps();
-            if(buf.size()==768)
+            camera.getFrame();
+            if(camera.getSuccess())
             {
                 data=camera.getTemps();
                 text.setString(modes[mode]+"|"+std::to_string(data.size()));
