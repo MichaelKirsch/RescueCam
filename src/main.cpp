@@ -29,6 +29,8 @@ void changeMode(int mode, sf::VertexArray& array,std::vector<float>& data, float
                         temp-=30.f;
                         temp*=10.f;
                         temp/=100.f;
+                        if (temp<0.0f)
+                            temp=0.f;
                         bucol = {(sf::Uint8)(temp*255),(sf::Uint8)(temp*255),(sf::Uint8)(temp*255)};
                     }
 
