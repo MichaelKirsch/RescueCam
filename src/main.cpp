@@ -20,35 +20,21 @@ void changeMode(int mode, sf::VertexArray& array,std::vector<float>& data, float
             array[pos+1].position = sf::Vector2f((x+1)*tile_x, y*tile_y);
             array[pos+2].position = sf::Vector2f((x+1)*tile_x, (y+1)*tile_y);
             array[pos+3].position = sf::Vector2f(x*tile_x, (y+1)*tile_y);
-            switch (mode)
+            float low_end = 25.f;
+            float high_end = 40.f;
+            sf::Color bucol;
+            if(data[(x*24)+y]>low_end && data[(x*24)+y]<high_end)
             {
-                case 0:
-                    float low_end = 25.f;
-                    float high_end = 40.f;
-                    if(data[(x*24)+y]>low_end && data[(x*24)+y]<high_end)
-                    {
-                        float temp =data[(x*24)+y];
-                        float delta = high_end-low_end;
-                        temp-=low_end;
-                        float perc = (1.f/delta)*temp;
-                        if (perc<0.f)
-                            perc=0.f;
-                        bucol = {(sf::Uint8)(100+(154*perc)),(sf::Uint8)(100+(154*perc)),(sf::Uint8)(100+(154*perc))};
-                    }
-
-                    else
-                        bucol = {(sf::Uint8)(0),(sf::Uint8)(0),(sf::Uint8)(0)};
-                    break;
-                case 1:
-                    bucol = {(sf::Uint8)(rand()%255),(sf::Uint8)(rand()%255),(sf::Uint8)(rand()%255)};
-                    break;
-                case 2:
-                    bucol = {(sf::Uint8)(rand()%100),(sf::Uint8)(rand()%100),(sf::Uint8)(rand()%100)};
-                    break;
-                default:
-                    bucol = sf::Color::Magenta;
-                    break;
+                float temp =data[(x*24)+y];
+                float delta = high_end-low_end;
+                temp-=low_end;
+                float perc = (1.f/delta)*temp;
+                if (perc<0.f)
+                    perc=0.f;
+                bucol = {(sf::Uint8)(100+(154*perc)),(sf::Uint8)(100+(154*perc)),(sf::Uint8)(100+(154*perc))};
             }
+            else
+                bucol = {(sf::Uint8)(0),(sf::Uint8)(0),(sf::Uint8)(0)};
             array[pos].color = bucol;
             array[pos+1].color = bucol;
             array[pos+2].color = bucol;
