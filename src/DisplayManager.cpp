@@ -45,6 +45,7 @@ void DisplayManager::updateInputs(float elapsed) {
 void DisplayManager::run() {
     while(true)
     {
+        //rt
         float elapsed = clock.restart().asSeconds();
         updateCamera(elapsed);
         updateDisplay(elapsed);
