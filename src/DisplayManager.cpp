@@ -10,7 +10,8 @@ DisplayManager::DisplayManager():camera(0x33,ThermalCamera::REFRESH_RATE::HZ_16)
     std::fill(m_rawFrameData.begin(),m_rawFrameData.end(),30.f);
     m_processedFrame.reserve(768);
     std::fill(m_processedFrame.begin(),m_processedFrame.end(),sf::Color::White);
-
+    m_vertexArray.resize(32*24*4);
+    m_vertexArray.setPrimitiveType(sf::Quads);
     m_window.create(sf::VideoMode::getDesktopMode(),"RescueCam",sf::Style::Fullscreen);
     font.loadFromFile("/home/pi/Rescuecam/RescueCam/fonts/JetBrainsMono-Regular.ttf");
     modeText.setFont(font);
