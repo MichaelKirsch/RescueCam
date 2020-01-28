@@ -13,7 +13,7 @@ DisplayManager::DisplayManager():camera(0x33,ThermalCamera::REFRESH_RATE::HZ_16)
     m_vertexArray.resize(32*24*4);
     m_vertexArray.setPrimitiveType(sf::Quads);
     m_window.create(sf::VideoMode::getDesktopMode(),"RescueCam",sf::Style::Fullscreen);
-    font.loadFromFile("/home/pi/Rescuecam/RescueCam/fonts/JetBrainsMono-Regular.ttf");
+    font.loadFromFile("/home/pi/rescuecam/fonts/JetBrainsMono-Regular.ttf");
     modeText.setFont(font);
     modeText.setPosition(m_window.getSize().x*0.04f,m_window.getSize().y*0.04f);
     modeText.setCharacterSize(m_window.getSize().y*0.03f);
