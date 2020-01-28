@@ -8,6 +8,7 @@ link_libraries(stdc++fs)
 file(GLOB_RECURSE SCRS_FILES "src/*.cpp" "src/*.hpp" "src/*.h" "src/*.c")
 
 add_executable(${PROJECT_NAME} ${SCRS_FILES})
+
 find_package(SFML 2.5.1 COMPONENTS system window graphics REQUIRED)
 find_library(wiringPi_LIB wiringPi)
 target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system ${wiringPi_LIB})
