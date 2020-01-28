@@ -18,6 +18,7 @@
 #include "MLX90640_API.h"
 #include <math.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <chrono>
 
 void ExtractVDDParameters(uint16_t *eeData, paramsMLX90640 *mlx90640);
