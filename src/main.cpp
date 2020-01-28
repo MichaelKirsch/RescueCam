@@ -29,11 +29,11 @@ void changeMode(int mode, sf::VertexArray& array,std::vector<float>& data, float
                         temp-=30.f;
                         temp*=10.f;
                         temp/=100.f;
-                        bucol = {(sf::Uint8)(temp*235),(sf::Uint8)(temp*140),(sf::Uint8)(temp*52)};
+                        bucol = {(sf::Uint8)(temp*255),(sf::Uint8)(temp*255),(sf::Uint8)(temp*255)};
                     }
 
                     else
-                        bucol = {(sf::Uint8)(70),(sf::Uint8)(70),(sf::Uint8)(70)};
+                        bucol = {(sf::Uint8)(0),(sf::Uint8)(0),(sf::Uint8)(0)};
                     break;
                 case 1:
                     bucol = {(sf::Uint8)(rand()%255),(sf::Uint8)(rand()%255),(sf::Uint8)(rand()%255)};
