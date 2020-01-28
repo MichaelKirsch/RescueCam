@@ -50,7 +50,7 @@ int main() {
     pinMode(0, INPUT);		// Configure GPIO0 as an output
     pinMode(2, INPUT);		// Configure GPIO1 as an input
 
-    ThermalCamera camera;
+    ThermalCamera camera(0x33,ThermalCamera::REFRESH_RATE::HZ_8);
 
     std::vector<float> data;
     sf::RenderWindow window;
@@ -87,7 +87,7 @@ int main() {
         auto delta_time =  cl.restart().asSeconds();
         timer+= delta_time;
         time_since_last_click+=delta_time;
-        if(timer>1.f/60.f)
+        if(timer>1.f/8.f)
         {
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             {
@@ -109,18 +109,8 @@ int main() {
 
             }
             //text.setString(modes[mode]);
-            data.clear();
-            data.reserve(768);
-            std::string part;
-            std::ifstream infile;
-            infile.open ("/home/pi/Rescuecam/RescueCam/py-files/heatmap.txt");
-            while(infile>>part)
-            {
-                part.pop_back();
-                data.emplace_back(std::stof(part));
-            }
-            infile.close();
-            text.setString(modes[mode]);
+            data=camera.getTemps();
+            text.setString(modes[mode]+"|"+std::to_string(data[0]));
             timer = 0.f;
             changeMode(mode,cameraView,data,tilesize_x,tilesize_y);
             window.clear();
