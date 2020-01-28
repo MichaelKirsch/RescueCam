@@ -23,7 +23,10 @@ void changeMode(int mode, sf::VertexArray& array,std::vector<float>& data, float
             switch (mode)
             {
                 case 0:
-                    bucol = {(sf::Uint8)(data[(x*24)+y]*4),(sf::Uint8)(0),(sf::Uint8)(0)};
+                    if(data[(x*24)+y]>20 && data[(x*24)+y]<45)
+                        bucol = {(sf::Uint8)(235),(sf::Uint8)(140),(sf::Uint8)(52)};
+                    else
+                        bucol = {(sf::Uint8)(70),(sf::Uint8)(70),(sf::Uint8)(70)};
                     break;
                 case 1:
                     bucol = {(sf::Uint8)(rand()%255),(sf::Uint8)(rand()%255),(sf::Uint8)(rand()%255)};
