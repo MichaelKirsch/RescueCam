@@ -107,7 +107,7 @@ void DisplayManager::updateCamera(float elapsed) {
         int x_small=0;
         int y_small=0;
 
-        float openingangleCamera = 32.f;
+        float openingangleCamera = 55.f;
         float openingAngleThermal = 55.f;
         sf::Vector2f resolutionThermal(32,24);
         sf::Vector2f resolutionNormal(640,480);
