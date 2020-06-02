@@ -36,6 +36,9 @@ void DisplayManager::updateInputs(float elapsed) {
             debounce_timer = 0.f;
             //
         }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+            m_window.close();
+
         sf::Event ev;
         while(m_window.pollEvent(ev)){}
     }
@@ -43,7 +46,7 @@ void DisplayManager::updateInputs(float elapsed) {
 }
 
 void DisplayManager::run() {
-    while(true)
+    while(m_window.isOpen())
     {
         //rt
         float elapsed = clock.restart().asSeconds();
