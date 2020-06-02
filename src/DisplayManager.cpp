@@ -129,8 +129,8 @@ void DisplayManager::updateCamera(float elapsed) {
                 if(rest>=254)
                     rest = 254;
                 sf::Color end(red,rest,rest);
-                //cameraImage.setPixel(x,y,end);
+                cameraImage.setPixel(x,y,end);
             }
-        end_texture.loadFromFile("data/image.jpg");
+        end_texture.loadFromImage(cameraImage);
     }
 }
