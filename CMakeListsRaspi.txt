@@ -8,7 +8,7 @@ link_libraries(stdc++fs)
 file(GLOB_RECURSE SCRS_FILES "src/*.cpp" "src/*.hpp" "src/*.h" "src/*.c")
 
 add_executable(${PROJECT_NAME} ${SCRS_FILES})
-
+file(COPY "data"  DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 find_package(SFML 2.5.1 COMPONENTS system window graphics REQUIRED)
 find_library(wiringPi_LIB wiringPi)
 find_library(bcm2835_lib bcm2835 )

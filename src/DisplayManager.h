@@ -3,7 +3,6 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
-#include "FilterBase.h"
 #include "wiringPi.h"
 #include "ThermalCamera.h"
 class DisplayManager {
@@ -21,8 +20,8 @@ private:
     sf::Clock clock;
     sf::Text modeText;
     sf::Font font;
-
-    FilterBase filter;
+    sf::RectangleShape picture;
+    sf::Image cameraImage, thermalImage;
     ThermalCamera camera;
 
     float debounce_timer = 0.f;
@@ -32,10 +31,10 @@ private:
     unsigned int framerateInput = 50;
     int mode = 0;
 
-    std::vector<float> m_rawFrameData;
-    std::vector<sf::Color> m_processedFrame;
-    sf::VertexArray m_vertexArray;
+    std::array<float,768>& m_rawFrameData;
     sf::RenderWindow m_window;
+    sf::Texture end_texture;
+
 protected:
 };
 

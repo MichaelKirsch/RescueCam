@@ -6,12 +6,6 @@ DisplayManager::DisplayManager():camera(0x33,ThermalCamera::REFRESH_RATE::HZ_16)
     wiringPiSetup ();
     pinMode(0, INPUT);		// Configure GPIO0 as an output
     pinMode(2, INPUT);		// Configure GPIO1 as an input
-    m_rawFrameData.reserve(768);
-    std::fill(m_rawFrameData.begin(),m_rawFrameData.end(),30.f);
-    m_processedFrame.reserve(768);
-    std::fill(m_processedFrame.begin(),m_processedFrame.end(),sf::Color::White);
-    m_vertexArray.resize(32*24*4);
-    m_vertexArray.setPrimitiveType(sf::Quads);
     m_window.create(sf::VideoMode::getDesktopMode(),"RescueCam",sf::Style::Fullscreen);
     font.loadFromFile("/home/pi/rescuecam/fonts/JetBrainsMono-Regular.ttf");
     modeText.setFont(font);
@@ -19,6 +13,10 @@ DisplayManager::DisplayManager():camera(0x33,ThermalCamera::REFRESH_RATE::HZ_16)
     modeText.setCharacterSize(m_window.getSize().y*0.03f);
     modeText.setFillColor(sf::Color::White);
     m_window.setMouseCursorVisible(false);
+    cameraImage.create(640,480);
+    thermalImage.create(32,24);
+    picture.setSize({(float)m_window.getSize().x,(float)m_window.getSize().y});
+    picture.setTexture(&end_texture);
 }
 
 void DisplayManager::updateInputs(float elapsed) {
@@ -30,12 +28,12 @@ void DisplayManager::updateInputs(float elapsed) {
         if(digitalRead(0)==0 && debounce_timer>0.5f)
         {
             debounce_timer = 0.f;
-            filter.nextFilter();
+            //
         }
         if(digitalRead(2)==0 && debounce_timer>0.5f)
         {
             debounce_timer = 0.f;
-            filter.lastFilter();
+            //
         }
         sf::Event ev;
         while(m_window.pollEvent(ev)){}
@@ -56,44 +54,81 @@ void DisplayManager::run() {
 
 void DisplayManager::updateDisplay(float elapsed) {
     display_timer+=elapsed;
-    float tile_x = m_window.getSize().x/32.f;
-    float tile_y = m_window.getSize().y/24.f;
-    int counter =0;
+
     if(display_timer>1.f/framerateDisplay)
     {
-        for(int x =0;x<32;x++) {
-            for (int y = 0; y < 24; y++) {
-                int pos = ((x * 24) + y) * 4;
-                m_vertexArray[pos].position = sf::Vector2f(x * tile_x, y * tile_y);
-                m_vertexArray[pos + 1].position = sf::Vector2f((x + 1) * tile_x, y * tile_y);
-                m_vertexArray[pos + 2].position = sf::Vector2f((x + 1) * tile_x, (y + 1) * tile_y);
-                m_vertexArray[pos + 3].position = sf::Vector2f(x * tile_x, (y + 1) * tile_y);
-                m_vertexArray[pos].color = m_processedFrame[counter];
-                m_vertexArray[pos + 1].color = m_processedFrame[counter];
-                m_vertexArray[pos + 2].color = m_processedFrame[counter];
-                m_vertexArray[pos + 3].color = m_processedFrame[counter];
-                counter++;
-            }
-        }
         display_timer = 0.f;
-        modeText.setString(filter.getFilterInfo());
         m_window.clear();
-        m_window.draw(m_vertexArray);
+        m_window.draw(picture);
         m_window.draw(modeText);
         m_window.display();
     }
 }
 
 void DisplayManager::updateCamera(float elapsed) {
-    camera_timer+=elapsed;
-    if(camera_timer>1.f/framerateCamera)
-    {
+    camera_timer += elapsed;
+    if (camera_timer > 1.f / framerateCamera) {
         camera_timer = 0.f;
-        int status =  camera.getFrame();
-        if(camera.getSuccess())
-        {
+        int status = camera.getFrame();
+        if (camera.getSuccess()) {
             m_rawFrameData = camera.getTemps();
         }
-        m_processedFrame = filter.filter(m_rawFrameData);
+
+        float lowest = 1000.f;
+        float highest = -1000.f;
+        for (auto &t:m_rawFrameData) {
+            if (t > highest)
+                highest = t;
+            if (t < lowest)
+                lowest = t;
+        }
+
+        float temperatureRange = highest - lowest;
+
+        for (int x = 0; x < 32; x++) {
+            for (int y = 0; y < 24; y++) {
+                int pos = ((x * 32) + y) * 4;
+
+                float raw_temp = m_rawFrameData[pos];
+                raw_temp -= lowest;
+                unsigned char processed_temp = (255 / temperatureRange) * raw_temp;
+                thermalImage.setPixel(x, y, {processed_temp, 0, 0});
+            }
+
+            cameraImage.loadFromFile("data/image.jpg");
+            modeText.setString("Temperature Range:" + std::to_string(lowest)+"°C to "+std::to_string(highest)+"°C");
+        }
+
+        float fr =  (float)thermalImage.getSize().x/(float)cameraImage.getSize().x;
+
+        int x_small;
+        int y_small;
+
+        for(int x=0;x<cameraImage.getSize().x;x++)
+            for(int y =0;y<cameraImage.getSize().y;y++)
+            {
+                sf::Color cameraColor = cameraImage.getPixel(x,y);
+                x_small = x*fr;
+                y_small = y*fr;
+                sf::Color smallColor = thermalImage.getPixel(x_small,y_small);
+                float factor = (1.0f/255.f)*smallColor.r;
+
+
+                int t = (cameraColor.r+cameraColor.g+cameraColor.b)/3;
+                float bright  =1.0f;
+
+                int rest = bright*t;
+
+                int red =t+(factor*255.f)*bright;
+                if(red>=254)
+                    red= 254;
+                if(rest>=254)
+                    rest = 254;
+                sf::Color end(red,rest,rest);
+                //std::cout << end.r << "|" << end.g << "|" << end.b << std::endl;
+
+                cameraImage.setPixel(x,y,end);
+            }
+        end_texture.loadFromImage(cameraImage);
     }
 }

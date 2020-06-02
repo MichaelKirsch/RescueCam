@@ -35,7 +35,8 @@ ThermalCamera::ThermalCamera(uint8_t adress,ThermalCamera::REFRESH_RATE rr ) {
             MLX90640_SetRefreshRate(m_adress, 0b111);
             break;
     }
-    MLX90640_SetChessMode(m_adress);
+    //MLX90640_SetChessMode(m_adress);
+    MLX90640_SetInterleavedMode(m_adress);
     MLX90640_DumpEE(m_adress,eepromCamera);
     MLX90640_ExtractParameters(eepromCamera,&mlx90640);
 }
@@ -58,11 +59,10 @@ bool ThermalCamera::getFrame() {
         MLX90640_CalculateTo(frameData, &mlx90640, emissivity, eTa, temperatureArray);
         MLX90640_BadPixelsCorrection((&mlx90640)->brokenPixels, temperatureArray, 1, &mlx90640);
         MLX90640_BadPixelsCorrection((&mlx90640)->outlierPixels, temperatureArray, 1, &mlx90640);
-        m_temperatureVector.clear();
         for(int x = 0; x < 32; x++) {
             for (int y = 0; y < 24; y++) {
                 float val = temperatureArray[32 * (23 - y) + x];
-                m_temperatureVector.emplace_back(val);
+                m_temperatureVector[(x*32)+y]=val;
             }
         }
         m_success = true;
@@ -71,7 +71,7 @@ bool ThermalCamera::getFrame() {
 
 }
 
-std::vector<float> &ThermalCamera::getTemps() {
+std::array<float,768> &ThermalCamera::getTemps() {
     return m_temperatureVector;
 }
 
