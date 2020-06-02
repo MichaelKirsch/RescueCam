@@ -121,14 +121,14 @@ void DisplayManager::updateCamera(float elapsed) {
         float factor_x = (pixel_x/resolutionNormal.x);
         float factor_y = (pixel_y/resolutionNormal.y);
 
-        modeText.setString("Temperature Range:" + std::to_string(lowest)+"°C to "+std::to_string(highest)+"°C");
+        modeText.setString("Temperature Range:" + std::to_string(lowest)+"°C to "+std::to_string(highest)+"°C Opening:" + std::to_string(opening_angle));
 
         for(int x=0;x<cameraImage.getSize().x;x++)
             for(int y =0;y<cameraImage.getSize().y;y++)
             {
                 sf::Color cameraColor = cameraImage.getPixel(x,y);
-                x_small = unused_x+(x*factor_x);
-                y_small = unused_y+(y*factor_y);
+                x_small = (unused_x/2)+(x*factor_x);
+                y_small = (unused_y/2)+(y*factor_y);
                 sf::Color smallColor = thermalImage.getPixel(x_small,y_small);
                 float factor = (1.0f/255.f)*smallColor.r;
                 int t = (cameraColor.r+cameraColor.g+cameraColor.b)/3;
