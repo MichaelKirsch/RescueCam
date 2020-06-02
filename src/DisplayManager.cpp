@@ -133,5 +133,6 @@ void DisplayManager::updateCamera(float elapsed) {
                 //cameraImage.setPixel(x,y,end);
             }
         end_texture.loadFromImage(cameraImage);
+            picture.setTexture(&end_texture);
     }
 }
