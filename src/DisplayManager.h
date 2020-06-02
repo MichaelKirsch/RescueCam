@@ -31,7 +31,7 @@ private:
     unsigned int framerateInput = 50;
     int mode = 0;
 
-    std::array<float,768>& m_rawFrameData;
+    std::array<float,768>* m_rawFrameData;
     sf::RenderWindow m_window;
     sf::Texture end_texture;
 

@@ -71,12 +71,12 @@ void DisplayManager::updateCamera(float elapsed) {
         camera_timer = 0.f;
         int status = camera.getFrame();
         if (camera.getSuccess()) {
-            m_rawFrameData = camera.getTemps();
+            m_rawFrameData = &camera.getTemps();
         }
 
         float lowest = 1000.f;
         float highest = -1000.f;
-        for (auto &t:m_rawFrameData) {
+        for (auto &t:*m_rawFrameData) {
             if (t > highest)
                 highest = t;
             if (t < lowest)
@@ -84,12 +84,12 @@ void DisplayManager::updateCamera(float elapsed) {
         }
 
         float temperatureRange = highest - lowest;
-
+        auto& t = *m_rawFrameData;
         for (int x = 0; x < 32; x++) {
             for (int y = 0; y < 24; y++) {
                 int pos = ((x * 32) + y) * 4;
 
-                float raw_temp = m_rawFrameData[pos];
+                float raw_temp = t[pos];
                 raw_temp -= lowest;
                 unsigned char processed_temp = (255 / temperatureRange) * raw_temp;
                 thermalImage.setPixel(x, y, {processed_temp, 0, 0});
