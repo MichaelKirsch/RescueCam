@@ -119,7 +119,7 @@ void DisplayManager::updateCamera(float elapsed) {
         int unused_y = resolutionThermal.y-pixel_y;
 
         float factor_x = (pixel_x/resolutionNormal.x);
-        float factor_y = (pixel_y/resolutionNormal.y;
+        float factor_y = (pixel_y/resolutionNormal.y);
 
         modeText.setString("Temperature Range:" + std::to_string(lowest)+"°C to "+std::to_string(highest)+"°C");
 
