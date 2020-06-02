@@ -91,17 +91,17 @@ void DisplayManager::updateCamera(float elapsed) {
         auto& t = *m_rawFrameData;
         //thermalImage.create(32,24);
         //thermalImage.setPixel(5, 5, {254, 0, 0});
-
+        thermalImage.loadFromFile("data/test.png");
         for (int x = 0; x < 32; x++) {
             for (int y = 0; y < 24; y++) {
                 int pos = ((x * 24) + y);
                 float raw_temp = t[pos];
                 raw_temp -= lowest;
                 unsigned char processed_temp = (254.f / temperatureRange) * raw_temp;
-                thermalImage.setPixel(x, y, {static_cast<unsigned char>(rand()%254), 0, 0});
+                thermalImage.setPixel(x, y, {processed_temp, 0, 0});
             }
         }
-        thermalImage.loadFromFile("data/test.png");
+
         cameraImage.loadFromFile("data/image.jpg");
 
         int x_small=0;
