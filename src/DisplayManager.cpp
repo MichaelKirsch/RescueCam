@@ -114,8 +114,8 @@ void DisplayManager::updateCamera(float elapsed) {
             for(int y =0;y<cameraImage.getSize().y;y++)
             {
                 sf::Color cameraColor = cameraImage.getPixel(x,y);
-                x_small = 4+(x*24/(float)cameraImage.getSize().x);
-                y_small = 3+(y*18/(float)cameraImage.getSize().y);
+                x_small = 2+((x*28)/(float)cameraImage.getSize().x);
+                y_small = 1+((y*20)/(float)cameraImage.getSize().y);
                 sf::Color smallColor = thermalImage.getPixel(x_small,y_small);
                 float factor = (1.0f/255.f)*smallColor.r;
                 int t = (cameraColor.r+cameraColor.g+cameraColor.b)/3;
