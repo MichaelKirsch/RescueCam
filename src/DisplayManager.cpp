@@ -123,7 +123,7 @@ void DisplayManager::updateCamera(float elapsed) {
 
                 int rest = bright*t;
 
-                int red =t+smallColor.r;
+                int red =(t*bright)+smallColor.r;
                 if(red>=254)
                     red= 254;
                 if(rest>=254)
