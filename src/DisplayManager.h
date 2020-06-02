@@ -30,7 +30,7 @@ private:
     unsigned int framerateDisplay = 40;
     unsigned int framerateInput = 50;
     int mode = 0;
-
+    float opening_angle = 40.f;
     std::array<float,768>* m_rawFrameData;
     sf::RenderWindow m_window;
     sf::Texture end_texture;

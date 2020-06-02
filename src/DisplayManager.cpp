@@ -29,12 +29,12 @@ void DisplayManager::updateInputs(float elapsed) {
         if(digitalRead(0)==0 && debounce_timer>0.5f)
         {
             debounce_timer = 0.f;
-            //
+            opening_angle+=1.f;
         }
         if(digitalRead(2)==0 && debounce_timer>0.5f)
         {
             debounce_timer = 0.f;
-            //
+            opening_angle-=1.f;
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             m_window.close();
@@ -107,7 +107,7 @@ void DisplayManager::updateCamera(float elapsed) {
         int x_small=0;
         int y_small=0;
 
-        float openingangleCamera = 55.f;
+        float openingangleCamera = opening_angle;
         float openingAngleThermal = 55.f;
         sf::Vector2f resolutionThermal(32,24);
         sf::Vector2f resolutionNormal(640,480);
