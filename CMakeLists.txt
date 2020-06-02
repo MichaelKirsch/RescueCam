@@ -11,5 +11,6 @@ file(COPY "data"  DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 add_executable(${PROJECT_NAME} ${SCRS_FILES} )
 find_package(SFML COMPONENTS system window graphics network audio REQUIRED)
-
+find_library(wiringPi_LIB wiringPi)
+find_library(bcm2835_lib bcm2835 )
 target_link_libraries(${PROJECT_NAME} sfml-audio sfml-graphics sfml-window sfml-system)
