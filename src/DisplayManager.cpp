@@ -90,7 +90,7 @@ void DisplayManager::updateCamera(float elapsed) {
         float temperatureRange = highest - lowest;
         auto& t = *m_rawFrameData;
         thermalImage.create(32,24);
-        thermalImage.setPixel(5, 5, {static_cast<unsigned char>(rand()%254), 0, 0});
+        thermalImage.setPixel(5, 5, {254, 0, 0});
         //for (int x = 0; x < 32; x++) {
         //    for (int y = 0; y < 24; y++) {
         //        int pos = ((x * 24) + y);
