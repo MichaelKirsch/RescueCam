@@ -91,8 +91,7 @@ void DisplayManager::updateCamera(float elapsed) {
         auto& t = *m_rawFrameData;
         for (int x = 0; x < 32; x++) {
             for (int y = 0; y < 24; y++) {
-                int pos = ((x * 32) + y) * 4;
-
+                int pos = ((x * 24) + y);
                 float raw_temp = t[pos];
                 raw_temp -= lowest;
                 unsigned char processed_temp = (255 / temperatureRange) * raw_temp;
