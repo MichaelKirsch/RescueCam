@@ -16,6 +16,7 @@ DisplayManager::DisplayManager():camera(0x33,ThermalCamera::REFRESH_RATE::HZ_16)
     cameraImage.create(640,480);
     thermalImage.create(32,24);
     picture.setSize({(float)m_window.getSize().x,(float)m_window.getSize().y});
+
     picture.setTexture(&end_texture);
 }
 
@@ -94,15 +95,15 @@ void DisplayManager::updateCamera(float elapsed) {
                 unsigned char processed_temp = (255 / temperatureRange) * raw_temp;
                 thermalImage.setPixel(x, y, {processed_temp, 0, 0});
             }
-
-            cameraImage.loadFromFile("data/image.jpg");
-            modeText.setString("Temperature Range:" + std::to_string(lowest)+"°C to "+std::to_string(highest)+"°C");
         }
 
         float fr =  (float)thermalImage.getSize().x/(float)cameraImage.getSize().x;
 
         int x_small;
         int y_small;
+
+        cameraImage.loadFromFile("data/image.jpg");
+        modeText.setString("Temperature Range:" + std::to_string(lowest)+"°C to "+std::to_string(highest)+"°C");
 
         for(int x=0;x<cameraImage.getSize().x;x++)
             for(int y =0;y<cameraImage.getSize().y;y++)
@@ -126,8 +127,7 @@ void DisplayManager::updateCamera(float elapsed) {
                     rest = 254;
                 sf::Color end(red,rest,rest);
                 //std::cout << end.r << "|" << end.g << "|" << end.b << std::endl;
-
-                cameraImage.setPixel(x,y,end);
+                //cameraImage.setPixel(x,y,end);
             }
         end_texture.loadFromImage(cameraImage);
     }
