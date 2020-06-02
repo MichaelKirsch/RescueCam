@@ -59,12 +59,8 @@ bool ThermalCamera::getFrame() {
         MLX90640_CalculateTo(frameData, &mlx90640, emissivity, eTa, temperatureArray);
         MLX90640_BadPixelsCorrection((&mlx90640)->brokenPixels, temperatureArray, 1, &mlx90640);
         MLX90640_BadPixelsCorrection((&mlx90640)->outlierPixels, temperatureArray, 1, &mlx90640);
-        for(int x = 0; x < 32; x++) {
-            for (int y = 0; y < 24; y++) {
-                float val = temperatureArray[(x*24)+y];
-                m_temperatureVector[(x*24)+y]=val;
-            }
-        }
+        for(int x=0;x<768;x++)
+            m_temperatureVector[x] = temperatureArray[x];
         m_success = true;
         return true;
     }

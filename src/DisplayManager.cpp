@@ -94,7 +94,7 @@ void DisplayManager::updateCamera(float elapsed) {
                 int pos = ((x * 24) + y);
                 float raw_temp = t[pos];
                 raw_temp -= lowest;
-                unsigned char processed_temp = (255 / temperatureRange) * raw_temp;
+                unsigned char processed_temp = (255.f / temperatureRange) * raw_temp;
                 thermalImage.setPixel(x, y, {processed_temp, 0, 0});
             }
         }
