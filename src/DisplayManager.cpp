@@ -99,21 +99,20 @@ void DisplayManager::updateCamera(float elapsed) {
                 thermalImage.setPixel(x, y, {processed_temp, 0, 0});
             }
         }
-
-        float fr =  (float)thermalImage.getSize().x/(float)cameraImage.getSize().x;
-
-        int x_small;
-        int y_small;
-
         cameraImage.loadFromFile("data/image.jpg");
+
+        int x_small=0;
+        int y_small=0;
+
+
         modeText.setString("Temperature Range:" + std::to_string(lowest)+"°C to "+std::to_string(highest)+"°C");
 
         for(int x=0;x<cameraImage.getSize().x;x++)
             for(int y =0;y<cameraImage.getSize().y;y++)
             {
                 sf::Color cameraColor = cameraImage.getPixel(x,y);
-                x_small = x*fr;
-                y_small = y*fr;
+                x_small = x*(float)thermalImage.getSize().x/(float)cameraImage.getSize().x;
+                y_small = y*(float)thermalImage.getSize().y/(float)cameraImage.getSize().y;
                 sf::Color smallColor = thermalImage.getPixel(x_small,y_small);
                 float factor = (1.0f/255.f)*smallColor.r;
 
@@ -131,6 +130,6 @@ void DisplayManager::updateCamera(float elapsed) {
                 sf::Color end(red,rest,rest);
                 cameraImage.setPixel(x,y,end);
             }
-        end_texture.loadFromImage(cameraImage);
+        end_texture.loadFromImage(thermalImage);
     }
 }
