@@ -91,47 +91,48 @@ void DisplayManager::updateCamera(float elapsed) {
         auto& t = *m_rawFrameData;
         //thermalImage.create(32,24);
         //thermalImage.setPixel(5, 5, {254, 0, 0});
+
+        for (int x = 0; x < 32; x++) {
+            for (int y = 0; y < 24; y++) {
+                int pos = ((x * 24) + y);
+                float raw_temp = t[pos];
+                raw_temp -= lowest;
+                unsigned char processed_temp = (254.f / temperatureRange) * raw_temp;
+                thermalImage.setPixel(x, y, {static_cast<unsigned char>(rand()%254), 0, 0});
+            }
+        }
         thermalImage.loadFromFile("data/test.png");
-        //for (int x = 0; x < 32; x++) {
-        //    for (int y = 0; y < 24; y++) {
-        //        int pos = ((x * 24) + y);
-        //        float raw_temp = t[pos];
-        //        raw_temp -= lowest;
-        //        unsigned char processed_temp = (254.f / temperatureRange) * raw_temp;
-        //        thermalImage.setPixel(x, y, {static_cast<unsigned char>(rand()%254), 0, 0});
-        //    }
-        //}
-        //cameraImage.loadFromFile("data/image.jpg");
-//
-        //int x_small=0;
-        //int y_small=0;
-//
-//
-        //modeText.setString("Temperature Range:" + std::to_string(lowest)+"°C to "+std::to_string(highest)+"°C");
-//
-        //for(int x=0;x<cameraImage.getSize().x;x++)
-        //    for(int y =0;y<cameraImage.getSize().y;y++)
-        //    {
-        //        sf::Color cameraColor = cameraImage.getPixel(x,y);
-        //        x_small = x*(float)thermalImage.getSize().x/(float)cameraImage.getSize().x;
-        //        y_small = y*(float)thermalImage.getSize().y/(float)cameraImage.getSize().y;
-        //        sf::Color smallColor = thermalImage.getPixel(x_small,y_small);
-        //        float factor = (1.0f/255.f)*smallColor.r;
-//
-//
-        //        int t = (cameraColor.r+cameraColor.g+cameraColor.b)/3;
-        //        float bright  =1.0f;
-//
-        //        int rest = bright*t;
-//
-        //        int red =t+(factor*255.f)*bright;
-        //        if(red>=254)
-        //            red= 254;
-        //        if(rest>=254)
-        //            rest = 254;
-        //        sf::Color end(red,rest,rest);
-        //        cameraImage.setPixel(x,y,end);
-        //    }
-        end_texture.loadFromImage(thermalImage);
+        cameraImage.loadFromFile("data/image.jpg");
+
+        int x_small=0;
+        int y_small=0;
+
+
+        modeText.setString("Temperature Range:" + std::to_string(lowest)+"°C to "+std::to_string(highest)+"°C");
+
+        for(int x=0;x<cameraImage.getSize().x;x++)
+            for(int y =0;y<cameraImage.getSize().y;y++)
+            {
+                sf::Color cameraColor = cameraImage.getPixel(x,y);
+                x_small = x*(float)thermalImage.getSize().x/(float)cameraImage.getSize().x;
+                y_small = y*(float)thermalImage.getSize().y/(float)cameraImage.getSize().y;
+                sf::Color smallColor = thermalImage.getPixel(x_small,y_small);
+                float factor = (1.0f/255.f)*smallColor.r;
+
+
+                int t = (cameraColor.r+cameraColor.g+cameraColor.b)/3;
+                float bright  =1.0f;
+
+                int rest = bright*t;
+
+                int red =t+(factor*255.f)*bright;
+                if(red>=254)
+                    red= 254;
+                if(rest>=254)
+                    rest = 254;
+                sf::Color end(red,rest,rest);
+                cameraImage.setPixel(x,y,end);
+            }
+        end_texture.loadFromImage(cameraImage);
     }
 }
