@@ -119,7 +119,7 @@ void DisplayManager::updateCamera(float elapsed) {
                 sf::Color smallColor = thermalImage.getPixel(x_small,y_small);
                 float factor = (1.0f/255.f)*smallColor.r;
                 int t = (cameraColor.r+cameraColor.g+cameraColor.b)/3;
-                float bright  =1.0f;
+                float bright  =0.7f;
 
                 int rest = bright*t;
 
