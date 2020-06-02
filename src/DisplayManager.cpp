@@ -7,7 +7,7 @@ DisplayManager::DisplayManager():camera(0x33,ThermalCamera::REFRESH_RATE::HZ_16)
     pinMode(0, INPUT);		// Configure GPIO0 as an output
     pinMode(2, INPUT);		// Configure GPIO1 as an input
     m_window.create(sf::VideoMode::getDesktopMode(),"RescueCam",sf::Style::Fullscreen);
-    font.loadFromFile("/home/pi/rescuecam/fonts/JetBrainsMono-Regular.ttf");
+    font.loadFromFile("data/fonts/JetBrainsMono-Regular.ttf");
     modeText.setFont(font);
     modeText.setPosition(m_window.getSize().x*0.04f,m_window.getSize().y*0.04f);
     modeText.setCharacterSize(m_window.getSize().y*0.03f);
