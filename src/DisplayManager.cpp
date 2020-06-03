@@ -111,8 +111,6 @@ void DisplayManager::updateCamera(float elapsed) {
                 thermalImage.setPixel(x, y, {processed_temp, 0, 0});
             }
         }
-
-        camera_timer = 0.f;
         stream1.read(cameraFrame);
         cv::cvtColor(cameraFrame, sfml_rgba_frame, cv::COLOR_BGR2BGRA);
         cameraImage.create(sfml_rgba_frame.cols, sfml_rgba_frame.rows,reinterpret_cast<sf::Uint8 *>(sfml_rgba_frame.ptr()));
@@ -156,10 +154,9 @@ void DisplayManager::updateCamera(float elapsed) {
                     rest = 254;
                 sf::Color end(red,rest,rest);
                 cameraImage.setPixel(x,y,end);
+
             }
-
-
-
         end_texture.loadFromImage(cameraImage);
+
     }
 }
