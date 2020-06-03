@@ -112,7 +112,7 @@ void DisplayManager::updateCamera(float elapsed) {
         if(stream1.read(cameraFrame))
         {
             cv::cvtColor(cameraFrame, sfml_rgba_frame, cv::COLOR_BGR2BGRA);
-            cameraImage.create(sfml_rgba_frame.cols, sfml_rgba_frame.rows,reinterpret_cast<sf::Uint8 *>(sfml_rgba_frame.ptr()));
+            cameraImage.create(640, 480,reinterpret_cast<sf::Uint8 *>(sfml_rgba_frame.ptr()));
         }
         int x_small=0;
         int y_small=0;
