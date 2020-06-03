@@ -114,7 +114,8 @@ void DisplayManager::updateCamera(float elapsed) {
                         red= 254;
                     if(rest>=254)
                         rest = 254;
-                    cameraImage.setPixel(x,y, {(unsigned char)red,(unsigned char)rest,(unsigned char)rest});
+                    //cameraImage.setPixel(x,y, {(unsigned char)red,(unsigned char)rest,(unsigned char)rest});
+                    cameraImage.setPixel(x,y, smallColor);
                 }
             end_texture.loadFromImage(cameraImage);
             modeText.setString("Timer:" +std::to_string(clock.restart().asMilliseconds()));
