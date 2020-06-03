@@ -76,6 +76,15 @@ void DisplayManager::updateDisplay(float elapsed) {
 
 void DisplayManager::updateCamera(float elapsed) {
     camera_timer += elapsed;
+
+    if (camera_timer > 1.f / 30) {
+        camera_timer = 0.f;
+        if (stream1.read(cameraFrame)) {
+            cv::cvtColor(cameraFrame, sfml_rgba_frame, cv::COLOR_BGR2BGRA);
+            cameraImage.create(640, 480, reinterpret_cast<sf::Uint8 *>(sfml_rgba_frame.ptr()));
+            end_texture.loadFromImage(cameraImage);
+        }
+    }
     if (camera_timer > 1.f / framerateCamera) {
 
 
@@ -108,11 +117,6 @@ void DisplayManager::updateCamera(float elapsed) {
                 unsigned char processed_temp = (254.f / temperatureRange) * raw_temp;
                 thermalImage.setPixel(x, y, {processed_temp, 0, 0});
             }
-        }
-        if(stream1.read(cameraFrame))
-        {
-            cv::cvtColor(cameraFrame, sfml_rgba_frame, cv::COLOR_BGR2BGRA);
-            cameraImage.create(640, 480,reinterpret_cast<sf::Uint8 *>(sfml_rgba_frame.ptr()));
         }
         int x_small=0;
         int y_small=0;
@@ -155,6 +159,7 @@ void DisplayManager::updateCamera(float elapsed) {
                 cameraImage.setPixel(x,y,end);
 
             }
+
         end_texture.loadFromImage(cameraImage);
 
     }
