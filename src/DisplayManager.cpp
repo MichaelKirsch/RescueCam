@@ -124,7 +124,7 @@ void DisplayManager::updateCamera(float elapsed) {
 //
             //    }
 //
-            //end_texture.loadFromImage(cameraImage);
+            end_texture.loadFromImage(cameraImage);
             modeText.setString("Timer:" +std::to_string(clock.restart().asMilliseconds()));
         }
     }
