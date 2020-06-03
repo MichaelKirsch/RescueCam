@@ -109,10 +109,11 @@ void DisplayManager::updateCamera(float elapsed) {
                 thermalImage.setPixel(x, y, {processed_temp, 0, 0});
             }
         }
-        stream1.read(cameraFrame);
-        cv::cvtColor(cameraFrame, sfml_rgba_frame, cv::COLOR_BGR2BGRA);
-        cameraImage.create(sfml_rgba_frame.cols, sfml_rgba_frame.rows,reinterpret_cast<sf::Uint8 *>(sfml_rgba_frame.ptr()));
-
+        if(stream1.read(cameraFrame))
+        {
+            cv::cvtColor(cameraFrame, sfml_rgba_frame, cv::COLOR_BGR2BGRA);
+            cameraImage.create(sfml_rgba_frame.cols, sfml_rgba_frame.rows,reinterpret_cast<sf::Uint8 *>(sfml_rgba_frame.ptr()));
+        }
         int x_small=0;
         int y_small=0;
 
