@@ -99,7 +99,7 @@ void DisplayManager::updateCamera(float elapsed) {
             float factor_y = (pixel_y/resolutionNormal.y);
             sf::Color cameraColor,smallColor,end;
             int red=0;
-            unsigned char t=0;
+            int t=0;
             float factor=0.f;
             for(int x=0;x<cameraImage.getSize().x;x++)
                 for(int y =0;y<cameraImage.getSize().y;y++)
@@ -113,7 +113,7 @@ void DisplayManager::updateCamera(float elapsed) {
                     red =t+smallColor.r;
                     if(red>=254)
                         red= 254;
-                    cameraImage.setPixel(x,y, {(unsigned char)red,t,t});
+                    cameraImage.setPixel(x,y, {(unsigned char)red,(unsigned char)t,(unsigned char)t});
                 }
             end_texture.loadFromImage(cameraImage);
             modeText.setString("Timer:" +std::to_string(clock.restart().asMilliseconds()));
