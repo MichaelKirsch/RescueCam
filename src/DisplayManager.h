@@ -26,7 +26,7 @@ private:
     sf::RectangleShape picture;
     sf::Image cameraImage, thermalImage;
     ThermalCamera camera;
-
+    float normalCameraTimer=0.f;
     cv::Mat sfml_rgba_frame;
     cv::Mat cameraFrame;
     cv::VideoCapture stream1;
