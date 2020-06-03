@@ -18,11 +18,12 @@ DisplayManager::DisplayManager():camera(0x33,ThermalCamera::REFRESH_RATE::HZ_16)
     modeText.setCharacterSize(m_window.getSize().y*0.03f);
     modeText.setFillColor(sf::Color::White);
     m_window.setMouseCursorVisible(false);
-    cameraImage.create(640,480,{100,100,100});
+    cameraImage.create(640,480);
     thermalImage.create(32,24);
+
     picture.setSize({(float)m_window.getSize().x,(float)m_window.getSize().y});
+    end_texture.loadFromFile("data/image.jpg");
     picture.setTexture(&end_texture);
-    end_texture.loadFromImage(cameraImage);
 }
 
 void DisplayManager::updateInputs(float elapsed) {
@@ -83,6 +84,7 @@ void DisplayManager::updateCamera(float elapsed) {
         if (stream1.read(cameraFrame)) {
             cv::cvtColor(cameraFrame, sfml_rgba_frame, cv::COLOR_BGR2BGRA);
             cameraImage.create(640, 480, reinterpret_cast<sf::Uint8 *>(sfml_rgba_frame.ptr()));
+
             int x_small=0;
             int y_small=0;
             float openingangleCamera = opening_angle;
