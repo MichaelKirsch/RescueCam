@@ -101,7 +101,7 @@ void DisplayManager::updateCamera(float elapsed) {
             for(int x=0;x<cameraImage.getSize().x;x++)
                 for(int y =0;y<cameraImage.getSize().y;y++)
                 {
-                    cameraColor = {100,100,100};//cameraImage.getPixel(x,y);
+                    cameraColor = cameraImage.getPixel(x,y);;
                     x_small = (unused_x/2)+(x*factor_x);
                     y_small = (unused_y/2)+(y*factor_y);
                     smallColor = thermalImage.getPixel(x_small,y_small);
@@ -114,8 +114,7 @@ void DisplayManager::updateCamera(float elapsed) {
                         red= 254;
                     if(rest>=254)
                         rest = 254;
-                    //cameraImage.setPixel(x,y, {(unsigned char)red,(unsigned char)rest,(unsigned char)rest});
-                    cameraImage.setPixel(x,y, smallColor);
+                    cameraImage.setPixel(x,y, {(unsigned char)red,(unsigned char)rest,(unsigned char)rest});
                 }
             end_texture.loadFromImage(cameraImage);
             modeText.setString("Timer:" +std::to_string(clock.restart().asMilliseconds()));
