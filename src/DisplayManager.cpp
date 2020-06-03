@@ -3,11 +3,8 @@
 #include "DisplayManager.h"
 
 DisplayManager::DisplayManager():camera(0x33,ThermalCamera::REFRESH_RATE::HZ_16) {
-    cv::VideoCapture stream2(0);
 
-    stream1 = stream2;
-
-    if (!stream1.isOpened()) {
+    if (!stream1.open(0)) {
         std::cout << "Camera failed to open" << std::endl;
     }
 
