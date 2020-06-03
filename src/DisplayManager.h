@@ -40,7 +40,7 @@ private:
     std::array<float,768>* m_rawFrameData;
     sf::RenderWindow m_window;
     sf::Texture end_texture;
-
+    sf::Clock timer;
 protected:
 };
 

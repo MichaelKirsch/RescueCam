@@ -78,6 +78,7 @@ void DisplayManager::updateCamera(float elapsed) {
     camera_timer += elapsed;
     normalCameraTimer+=elapsed;
     if (normalCameraTimer > 1.f / 30) {
+        clock.restart();
         normalCameraTimer = 0.f;
         if (stream1.read(cameraFrame)) {
             cv::cvtColor(cameraFrame, sfml_rgba_frame, cv::COLOR_BGR2BGRA);
@@ -123,11 +124,10 @@ void DisplayManager::updateCamera(float elapsed) {
                 }
 
             end_texture.loadFromImage(cameraImage);
+            modeText.setString("Timer:" +std::to_string(clock.restart().asMilliseconds()));
         }
     }
     if (camera_timer > 1.f / framerateCamera) {
-
-
 
         camera_timer = 0.f;
         int status = camera.getFrame();
@@ -143,7 +143,7 @@ void DisplayManager::updateCamera(float elapsed) {
 
             float temperatureRange = highest - lowest;
             auto& t = *m_rawFrameData;
-            modeText.setString("Temperature Range:" + std::to_string(lowest)+"°C to "+std::to_string(highest)+"°C Opening:" + std::to_string(opening_angle));
+
             for (int x = 0; x < 32; x++) {
                 for (int y = 0; y < 24; y++) {
                     int pos = ((x * 24) + y);
