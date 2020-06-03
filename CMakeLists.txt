@@ -4,8 +4,6 @@ set(PROJECT_NAME RescueCam)
 project(${PROJECT_NAME})
 set(SFML_DIR "${CMAKE_CURRENT_LIST_DIR}/libs/SFML-2.5.1/lib/cmake/SFML")
 
-link_libraries(stdc++fs)
-
 file(GLOB_RECURSE SCRS_FILES "src/*.cpp" "src/*.hpp" "src/*.h" "src/*.c")
 file(COPY "data"  DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
