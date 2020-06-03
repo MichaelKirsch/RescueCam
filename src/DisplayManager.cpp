@@ -157,7 +157,7 @@ void DisplayManager::updateCamera(float elapsed) {
             }
 
         stream1.read(cameraFrame);
-        cvtColor(cameraFrame, sfml_rgba_frame, CV_BGR2RGBA);
+        cvtColor(cameraFrame, sfml_rgba_frame, COLOR_BGR2BGRA);
         end_texture.create(sfml_rgba_frame.cols, sfml_rgba_frame.rows);
         end_texture.update(reinterpret_cast<sf::Uint8*>(sfml_rgba_frame.ptr()));
 
