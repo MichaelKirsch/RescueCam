@@ -76,14 +76,6 @@ void DisplayManager::updateDisplay(float elapsed) {
 
 void DisplayManager::updateCamera(float elapsed) {
     camera_timer += elapsed;
-    if (camera_timer > 1.f / 30) {
-        camera_timer = 0.f;
-        stream1.read(cameraFrame);
-        cv::cvtColor(cameraFrame, sfml_rgba_frame, cv::COLOR_BGR2BGRA);
-        end_texture.create(sfml_rgba_frame.cols, sfml_rgba_frame.rows);
-        end_texture.update(reinterpret_cast<sf::Uint8 *>(sfml_rgba_frame.ptr()));
-    }
-
     if (camera_timer > 1.f / framerateCamera) {
 
 
@@ -100,6 +92,8 @@ void DisplayManager::updateCamera(float elapsed) {
             if (t > highest)
                 highest = t;
         }
+
+
 
         float temperatureRange = highest - lowest;
         auto& t = *m_rawFrameData;
@@ -118,7 +112,10 @@ void DisplayManager::updateCamera(float elapsed) {
             }
         }
 
-        cameraImage.loadFromFile("data/image.jpg");
+        camera_timer = 0.f;
+        stream1.read(cameraFrame);
+        cv::cvtColor(cameraFrame, sfml_rgba_frame, cv::COLOR_BGR2BGRA);
+        cameraImage.create(sfml_rgba_frame.cols, sfml_rgba_frame.rows,reinterpret_cast<sf::Uint8 *>(sfml_rgba_frame.ptr()));
 
         int x_small=0;
         int y_small=0;
@@ -163,6 +160,6 @@ void DisplayManager::updateCamera(float elapsed) {
 
 
 
-        //end_texture.loadFromImage(cameraImage);
+        end_texture.loadFromImage(cameraImage);
     }
 }
