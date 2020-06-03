@@ -12,7 +12,7 @@ DisplayManager::DisplayManager():camera(0x33,ThermalCamera::REFRESH_RATE::HZ_16)
     pinMode(0, INPUT);		// Configure GPIO0 as an output
     pinMode(2, INPUT);		// Configure GPIO1 as an input
     m_window.create(sf::VideoMode::getDesktopMode(),"RescueCam",sf::Style::Fullscreen);
-    font.loadFromFile("data/fonts/JetBrainsMono-Regular.ttf");
+    font.loadFromFile("/home/pi/RescueCam/build/data/fonts/JetBrainsMono-Regular.ttf");
     modeText.setFont(font);
     modeText.setPosition(m_window.getSize().x*0.04f,m_window.getSize().y*0.04f);
     modeText.setCharacterSize(m_window.getSize().y*0.03f);
@@ -20,9 +20,8 @@ DisplayManager::DisplayManager():camera(0x33,ThermalCamera::REFRESH_RATE::HZ_16)
     m_window.setMouseCursorVisible(false);
     cameraImage.create(640,480);
     thermalImage.create(32,24);
-    cameraImage.saveToFile("data/image.jpg");
     picture.setSize({(float)m_window.getSize().x,(float)m_window.getSize().y});
-    end_texture.loadFromFile("data/image.jpg");
+    end_texture.loadFromFile("/home/pi/RescueCam/build/data/image.jpg");
     picture.setTexture(&end_texture);
 }
 
