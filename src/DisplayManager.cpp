@@ -3,6 +3,14 @@
 #include "DisplayManager.h"
 
 DisplayManager::DisplayManager():camera(0x33,ThermalCamera::REFRESH_RATE::HZ_16) {
+    VideoCapture stream2(0);
+
+    stream1 = stream2;
+
+    if (!stream1.isOpened()) {
+        cout << "Camera failed to open" << endl;
+    }
+
     wiringPiSetup ();
     pinMode(0, INPUT);		// Configure GPIO0 as an output
     pinMode(2, INPUT);		// Configure GPIO1 as an input
@@ -72,6 +80,9 @@ void DisplayManager::updateDisplay(float elapsed) {
 void DisplayManager::updateCamera(float elapsed) {
     camera_timer += elapsed;
     if (camera_timer > 1.f / framerateCamera) {
+
+
+
         camera_timer = 0.f;
         int status = camera.getFrame();
         if (camera.getSuccess()) {
@@ -144,6 +155,12 @@ void DisplayManager::updateCamera(float elapsed) {
                 sf::Color end(red,rest,rest);
                 cameraImage.setPixel(x,y,end);
             }
-        end_texture.loadFromImage(cameraImage);
+
+        stream1.read(cameraFrame);
+        cvtColor(cameraFrame, sfml_rgba_frame, CV_BGR2RGBA);
+        end_texture.create(sfml_rgba_frame.cols, sfml_rgba_frame.rows);
+        end_texture.update(reinterpret_cast<sf::Uint8*>(sfml_rgba_frame.ptr()));
+
+        //end_texture.loadFromImage(cameraImage);
     }
 }
