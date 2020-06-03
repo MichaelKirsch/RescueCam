@@ -21,8 +21,8 @@ DisplayManager::DisplayManager():camera(0x33,ThermalCamera::REFRESH_RATE::HZ_16)
     cameraImage.create(640,480);
     thermalImage.create(32,24);
     picture.setSize({(float)m_window.getSize().x,(float)m_window.getSize().y});
-    end_texture.loadFromFile("data/image.jpg");
     picture.setTexture(&end_texture);
+    end_texture.loadFromImage(cameraImage);
 }
 
 void DisplayManager::updateInputs(float elapsed) {
