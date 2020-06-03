@@ -84,45 +84,44 @@ void DisplayManager::updateCamera(float elapsed) {
             cv::cvtColor(cameraFrame, sfml_rgba_frame, cv::COLOR_BGR2BGRA);
             cameraImage.create(640, 480, reinterpret_cast<sf::Uint8 *>(sfml_rgba_frame.ptr()));
 
-            //int x_small=0;
-            //int y_small=0;
+            int x_small=0;
+            int y_small=0;
 //
-            //float openingangleCamera = opening_angle;
-            //float openingAngleThermal = 55.f;
-            //sf::Vector2f resolutionThermal(32,24);
-            //sf::Vector2f resolutionNormal(640,480);
+            float openingangleCamera = opening_angle;
+            float openingAngleThermal = 55.f;
+            sf::Vector2f resolutionThermal(32,24);
+            sf::Vector2f resolutionNormal(640,480);
 //
-            //float croppingfactor = (1.f/(0.5f*openingAngleThermal)*(0.5*openingangleCamera));
-            //int pixel_x = croppingfactor*resolutionThermal.x;
-            //int pixel_y = croppingfactor*resolutionThermal.y;
-            //int unused_x = resolutionThermal.x-pixel_x;
-            //int unused_y = resolutionThermal.y-pixel_y;
+            float croppingfactor = (1.f/(0.5f*openingAngleThermal)*(0.5*openingangleCamera));
+            int pixel_x = croppingfactor*resolutionThermal.x;
+            int pixel_y = croppingfactor*resolutionThermal.y;
+            int unused_x = resolutionThermal.x-pixel_x;
+            int unused_y = resolutionThermal.y-pixel_y;
 //
-            //float factor_x = (pixel_x/resolutionNormal.x);
-            //float factor_y = (pixel_y/resolutionNormal.y);
+            float factor_x = (pixel_x/resolutionNormal.x);
+            float factor_y = (pixel_y/resolutionNormal.y);
+            sf::Color cameraColor,smallColor,end;
+            for(int x=0;x<cameraImage.getSize().x;x++)
+                for(int y =0;y<cameraImage.getSize().y;y++)
+                {
+                    cameraColor = cameraImage.getPixel(x,y);
+                    x_small = (unused_x/2)+(x*factor_x);
+                    y_small = (unused_y/2)+(y*factor_y);
+                    smallColor = thermalImage.getPixel(x_small,y_small);
+                    float factor = (1.0f/255.f)*smallColor.r;
+                    int t = (cameraColor.r+cameraColor.g+cameraColor.b)/3;
+                    float bright  =0.7f;
 //
-            //for(int x=0;x<cameraImage.getSize().x;x++)
-            //    for(int y =0;y<cameraImage.getSize().y;y++)
-            //    {
-            //        sf::Color cameraColor = cameraImage.getPixel(x,y);
-            //        x_small = (unused_x/2)+(x*factor_x);
-            //        y_small = (unused_y/2)+(y*factor_y);
-            //        sf::Color smallColor = thermalImage.getPixel(x_small,y_small);
-            //        float factor = (1.0f/255.f)*smallColor.r;
-            //        int t = (cameraColor.r+cameraColor.g+cameraColor.b)/3;
-            //        float bright  =0.7f;
+                    int rest = bright*t;
 //
-            //        int rest = bright*t;
+                    int red =(t*bright)+smallColor.r;
+                    if(red>=254)
+                        red= 254;
+                    if(rest>=254)
+                        rest = 254;
+                    cameraImage.setPixel(x,y, {(unsigned char)red,(unsigned char)rest,(unsigned char)rest});
 //
-            //        int red =(t*bright)+smallColor.r;
-            //        if(red>=254)
-            //            red= 254;
-            //        if(rest>=254)
-            //            rest = 254;
-            //        sf::Color end(red,rest,rest);
-            //        cameraImage.setPixel(x,y,end);
-//
-            //    }
+                }
 //
             end_texture.loadFromImage(cameraImage);
             modeText.setString("Timer:" +std::to_string(clock.restart().asMilliseconds()));
