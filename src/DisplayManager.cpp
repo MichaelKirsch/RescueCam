@@ -8,7 +8,7 @@ DisplayManager::DisplayManager():camera(0x33,ThermalCamera::REFRESH_RATE::HZ_16)
     stream1 = stream2;
 
     if (!stream1.isOpened()) {
-        cout << "Camera failed to open" << endl;
+        std::cout << "Camera failed to open" << std::endl;
     }
 
     wiringPiSetup ();
