@@ -7,7 +7,6 @@
 #include "ThermalCamera.h"
 #include <opencv2/opencv.hpp>
 
-using namespace cv;
 
 class DisplayManager {
 public:
@@ -28,9 +27,9 @@ private:
     sf::Image cameraImage, thermalImage;
     ThermalCamera camera;
 
-    Mat sfml_rgba_frame;
-    Mat cameraFrame;
-    VideoCapture stream1;
+    cv::Mat sfml_rgba_frame;
+    cv::Mat cameraFrame;
+    cv::VideoCapture stream1;
     float debounce_timer = 0.f;
     float display_timer,input_timer,camera_timer;
     unsigned int framerateCamera = 16;

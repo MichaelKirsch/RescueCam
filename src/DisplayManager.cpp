@@ -3,7 +3,7 @@
 #include "DisplayManager.h"
 
 DisplayManager::DisplayManager():camera(0x33,ThermalCamera::REFRESH_RATE::HZ_16) {
-    VideoCapture stream2(0);
+    cv::VideoCapture stream2(0);
 
     stream1 = stream2;
 
@@ -157,7 +157,7 @@ void DisplayManager::updateCamera(float elapsed) {
             }
 
         stream1.read(cameraFrame);
-        cvtColor(cameraFrame, sfml_rgba_frame, COLOR_BGR2BGRA);
+        cv::cvtColor(cameraFrame, sfml_rgba_frame, cv::COLOR_BGR2BGRA);
         end_texture.create(sfml_rgba_frame.cols, sfml_rgba_frame.rows);
         end_texture.update(reinterpret_cast<sf::Uint8*>(sfml_rgba_frame.ptr()));
 
