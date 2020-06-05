@@ -118,7 +118,8 @@ void DisplayManager::updateCamera(float elapsed) {
             int red=0;
             int t=0;
             float factor=0.f;
-
+            sf::Image g;
+            g.create(640,480);
             for(int x=0;x<cameraImage.getSize().x;x++)
             {
                 for(int y =0;y<cameraImage.getSize().y;y++)
@@ -132,11 +133,7 @@ void DisplayManager::updateCamera(float elapsed) {
                     red =t+smallColor.r;
                     if(red>=254)
                         red= 254;
-                    int buffer = ((x*cameraImage.getSize().y)+y)*4;
-                    newPixel[buffer] =red;
-                    newPixel[buffer+1]=t;
-                    newPixel[buffer+2]=t;
-                    newPixel[buffer+3]=255;
+                    g.setPixel(x,y,sf::Color(red,t,t));
                 }
             }
             end_texture.create(640,480);
