@@ -36,16 +36,14 @@ void DisplayManager::updateInputs(float elapsed) {
         input_timer = 0.f;
         if(digitalRead(0)==0 && debounce_timer>0.5f)
         {
+            debounce_timer = 0.f;
             const auto p1 = std::chrono::system_clock::now();
             cameraImage.saveToFile("/home/pi/RescueCam/build/data/"+std::to_string(std::chrono::duration_cast<std::chrono::seconds>(
                     p1.time_since_epoch()).count())+".jpg");
-            debounce_timer = 0.f;
-            opening_angle+=1.f;
         }
         if(digitalRead(2)==0 && debounce_timer>0.5f)
         {
             debounce_timer = 0.f;
-            opening_angle-=1.f;
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             m_window.close();
