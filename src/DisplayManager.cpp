@@ -23,7 +23,7 @@ DisplayManager::DisplayManager():camera(0x33,ThermalCamera::REFRESH_RATE::HZ_16)
     picture.setSize({(float)m_window.getSize().x,(float)m_window.getSize().y});
     end_texture.loadFromFile("/home/pi/RescueCam/build/data/image.jpg");
     picture.setTexture(&end_texture);
-
+    modeText.setFillColor(sf::Color::Green);
     newPixel =new sf::Uint8[cameraImage.getSize().x*cameraImage.getSize().y*4];
 
 }
@@ -133,10 +133,10 @@ void DisplayManager::updateCamera(float elapsed) {
                     if(red>=254)
                         red= 254;
                     int buffer = ((x*cameraImage.getSize().y)+y)*4;
-
                     newPixel[buffer] =red;
                     newPixel[buffer+1]=t;
                     newPixel[buffer+2]=t;
+                    newPixel[buffer+3]=255;
                 }
             }
             end_texture.update(newPixel);
