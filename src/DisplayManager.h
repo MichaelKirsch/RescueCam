@@ -6,6 +6,7 @@
 #include "wiringPi.h"
 #include "ThermalCamera.h"
 #include <opencv2/opencv.hpp>
+#include <iostream>
 
 
 class DisplayManager {

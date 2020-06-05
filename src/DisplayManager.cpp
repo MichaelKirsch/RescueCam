@@ -70,6 +70,9 @@ void DisplayManager::run() {
         updateDisplay(elapsed);
         updateInputs(elapsed);
     }
+    std::cout << "x_axis_cor:" << x_axis_correction << " y_axis_cor:" << y_axis_correction << " Angle:" << opening_angle<< std::endl;
+
+
 }
 
 void DisplayManager::updateDisplay(float elapsed) {
