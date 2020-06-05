@@ -43,7 +43,18 @@ void DisplayManager::updateInputs(float elapsed) {
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
             m_window.close();
-
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+            y_axis_correction+=1;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+            y_axis_correction-=1;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+            x_axis_correction+=1;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            x_axis_correction-=1;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+            opening_angle+=1.f;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::N))
+            opening_angle-=1.f;
         sf::Event ev;
         while(m_window.pollEvent(ev)){}
     }
@@ -105,8 +116,8 @@ void DisplayManager::updateCamera(float elapsed) {
                 for(int y =0;y<cameraImage.getSize().y;y++)
                 {
                     cameraColor = cameraImage.getPixel(x,y);;
-                    x_small = (unused_x/2)+(x*factor_x);
-                    y_small = (unused_y/2)+(y*factor_y);
+                    x_small = (unused_x/2)+x_axis_correction+(x*factor_x);
+                    y_small = (unused_y/2)+y_axis_correction+(y*factor_y);
                     smallColor = thermalImage.getPixel(x_small,y_small);
                     factor = (1.0f/255.f)*smallColor.r;
                     t = (cameraColor.r+cameraColor.g+cameraColor.b)/3;
