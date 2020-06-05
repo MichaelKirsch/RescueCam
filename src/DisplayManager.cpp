@@ -120,9 +120,9 @@ void DisplayManager::updateCamera(float elapsed) {
             float factor=0.f;
             sf::Image g;
             g.create(640,480);
-            for(int x=0;x<cameraImage.getSize().x;x++)
+            for(int x=0;x<cameraImage.getSize().x;x+=2)
             {
-                for(int y =0;y<cameraImage.getSize().y;y++)
+                for(int y =0;y<cameraImage.getSize().y;y+=2)
                 {
                     cameraColor = cameraImage.getPixel(x,y);;
                     x_small = (unused_x/2)+x_axis_correction+(x*factor_x);
