@@ -36,6 +36,7 @@ private:
     cv::Mat sfml_rgba_frame;
     cv::Mat cameraFrame;
     cv::VideoCapture stream1;
+    bool overlay =true;
     float debounce_timer = 0.f;
     float display_timer,input_timer,camera_timer;
     unsigned int framerateCamera = 16;

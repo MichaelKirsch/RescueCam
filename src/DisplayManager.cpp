@@ -43,6 +43,7 @@ void DisplayManager::updateInputs(float elapsed) {
         }
         if(digitalRead(2)==0 && debounce_timer>0.5f)
         {
+            overlay = !overlay;
             debounce_timer = 0.f;
         }
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
@@ -119,21 +120,24 @@ void DisplayManager::updateCamera(float elapsed) {
             int red=0;
             int t=0;
             float factor=0.f;
-            for(int x=0;x<cameraImage.getSize().x;x+=1)
+            if(overlay)
             {
-                for(int y =0;y<cameraImage.getSize().y;y+=1)
+                for(int x=0;x<cameraImage.getSize().x;x+=1)
                 {
-                    x_small = (unused_x/2)+x_axis_correction+(x*factor_x);
-                    y_small = (unused_y/2)+y_axis_correction+(y*factor_y);
-                    smallColor = thermalImage.getPixel(x_small,y_small);
-                    if(smallColor.r>50)
+                    for(int y =0;y<cameraImage.getSize().y;y+=1)
                     {
-                        cameraColor = cameraImage.getPixel(x,y);;
-                        t = (cameraColor.r+cameraColor.g+cameraColor.b)/3;
-                        red =t+smallColor.r;
-                        if(red>=254)
-                            red=254;
-                        cameraImage.setPixel(x,y,sf::Color(red,t,t));
+                        x_small = (unused_x/2)+x_axis_correction+(x*factor_x);
+                        y_small = (unused_y/2)+y_axis_correction+(y*factor_y);
+                        smallColor = thermalImage.getPixel(x_small,y_small);
+                        if(smallColor.r>50)
+                        {
+                            cameraColor = cameraImage.getPixel(x,y);;
+                            t = (cameraColor.r+cameraColor.g+cameraColor.b)/3;
+                            red =t+smallColor.r;
+                            if(red>=254)
+                                red=254;
+                            cameraImage.setPixel(x,y,sf::Color(red,t,t));
+                        }
                     }
                 }
             }
