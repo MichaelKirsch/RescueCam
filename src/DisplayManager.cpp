@@ -118,20 +118,23 @@ void DisplayManager::updateCamera(float elapsed) {
             int red=0;
             int t=0;
             float factor=0.f;
-            for(int x=0;x<cameraImage.getSize().x;x+=2)
+            for(int x=0;x<cameraImage.getSize().x;x+=1)
             {
-                for(int y =0;y<cameraImage.getSize().y;y+=2)
+                for(int y =0;y<cameraImage.getSize().y;y+=1)
                 {
-                    cameraColor = cameraImage.getPixel(x,y);;
                     x_small = (unused_x/2)+x_axis_correction+(x*factor_x);
                     y_small = (unused_y/2)+y_axis_correction+(y*factor_y);
                     smallColor = thermalImage.getPixel(x_small,y_small);
-                    factor = (1.0f/255.f)*smallColor.r;
-                    t = (cameraColor.r+cameraColor.g+cameraColor.b)/3;
-                    red =t+smallColor.r;
-                    if(red>=254)
-                        red= 254;
-                    cameraImage.setPixel(x,y,sf::Color(red,t,t));
+                    if(smallColor.r>10)
+                    {
+                        cameraColor = cameraImage.getPixel(x,y);;
+                        factor = (1.0f/255.f)*smallColor.r;
+                        t = (cameraColor.r+cameraColor.g+cameraColor.b)/3;
+                        red =t+smallColor.r;
+                        if(red>=254)
+                            red= 254;
+                        cameraImage.setPixel(x,y,sf::Color(red,t,t));
+                    }
                 }
             }
             end_texture.update(cameraImage);
