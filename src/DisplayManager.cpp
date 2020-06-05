@@ -160,7 +160,9 @@ void DisplayManager::updateCamera(float elapsed) {
                     if (raw_temp <= 25.f)
                         raw_temp = camera.min_temp;
                     raw_temp -= camera.min_temp;
-                    unsigned char processed_temp = (255.f / temperatureRange) * raw_temp;
+                    unsigned char processed_temp =0;
+                    if(raw_temp>10)
+                        processed_temp = (255.f / temperatureRange) * raw_temp;
                     thermalImage.setPixel(x, y, {processed_temp, 0, 0});
                 }
             }
