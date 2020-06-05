@@ -36,6 +36,9 @@ void DisplayManager::updateInputs(float elapsed) {
         input_timer = 0.f;
         if(digitalRead(0)==0 && debounce_timer>0.5f)
         {
+            const auto p1 = std::chrono::system_clock::now();
+            cameraImage.saveToFile("/home/pi/RescueCam/build/data/"+std::to_string(std::chrono::duration_cast<std::chrono::seconds>(
+                    p1.time_since_epoch()).count())+".jpg");
             debounce_timer = 0.f;
             opening_angle+=1.f;
         }
@@ -131,7 +134,7 @@ void DisplayManager::updateCamera(float elapsed) {
                         t = (cameraColor.r+cameraColor.g+cameraColor.b)/3;
                         red =t+2*smallColor.r;
                         if(red>=254)
-                            red=255;
+                            red=254;
                         cameraImage.setPixel(x,y,sf::Color(red,t,t));
                     }
                 }
