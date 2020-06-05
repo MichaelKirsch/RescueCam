@@ -16,6 +16,8 @@ public:
     int getRefreshRate();
     bool getFrame();
     bool getSuccess(){ return m_success;};
+    float min_temp =0.f;
+    float max_temp =0.f;
     std::array<float,768>& getTemps();
 private:
     bool m_success;
@@ -23,6 +25,7 @@ private:
     std::array<float,768> m_temperatureVector;
     uint16_t eepromCamera[832];
     uint16_t frameData[834];
+
     std::array<float,768> image;
     uint16_t data[768* sizeof(float)];
     float temperatureArray[768];

@@ -128,11 +128,10 @@ void DisplayManager::updateCamera(float elapsed) {
                     if(smallColor.r>10)
                     {
                         cameraColor = cameraImage.getPixel(x,y);;
-                        factor = (1.0f/255.f)*smallColor.r;
                         t = (cameraColor.r+cameraColor.g+cameraColor.b)/3;
-                        red =t+smallColor.r;
+                        red =t+2*smallColor.r;
                         if(red>=254)
-                            red= 254;
+                            red=255;
                         cameraImage.setPixel(x,y,sf::Color(red,t,t));
                     }
                 }
@@ -148,14 +147,7 @@ void DisplayManager::updateCamera(float elapsed) {
         if (camera.getSuccess()) {
             m_rawFrameData = &camera.getTemps();
 
-            float lowest = 25.f;
-            float highest = -100.f;
-            for (auto &t:*m_rawFrameData) {
-                if (t > highest)
-                    highest = t;
-            }
-
-            float temperatureRange = highest - lowest;
+            float temperatureRange =camera.max_temp-camera.min_temp;
             auto& t = *m_rawFrameData;
 
             for (int x = 0; x < 32; x++) {
@@ -163,9 +155,10 @@ void DisplayManager::updateCamera(float elapsed) {
                     int pos = ((x * 24) + y);
                     float raw_temp = t[pos];
                     if (raw_temp <= 25.f)
-                        raw_temp = lowest;
-                    raw_temp -= lowest;
-                    unsigned char processed_temp = (254.f / temperatureRange) * raw_temp;
+                        raw_temp = 0;
+                    else
+                        raw_temp -= camera.min_temp;
+                    unsigned char processed_temp = (255.f / temperatureRange) * raw_temp;
                     thermalImage.setPixel(x, y, {processed_temp, 0, 0});
                 }
             }
