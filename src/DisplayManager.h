@@ -43,7 +43,7 @@ private:
     int mode = 0;
     float opening_angle = 68.f;
     int x_axis_correction = -1;
-    int y_axis_correction = -3;
+    int y_axis_correction = -5;
     std::array<float,768>* m_rawFrameData;
     sf::RenderWindow m_window;
     sf::Texture end_texture;
