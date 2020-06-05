@@ -128,7 +128,7 @@ void DisplayManager::updateCamera(float elapsed) {
                     x_small = (unused_x/2)+x_axis_correction+(x*factor_x);
                     y_small = (unused_y/2)+y_axis_correction+(y*factor_y);
                     smallColor = thermalImage.getPixel(x_small,y_small);
-                    if(smallColor.r>10)
+                    if(smallColor.r>50)
                     {
                         cameraColor = cameraImage.getPixel(x,y);;
                         t = (cameraColor.r+cameraColor.g+cameraColor.b)/3;
@@ -158,9 +158,8 @@ void DisplayManager::updateCamera(float elapsed) {
                     int pos = ((x * 24) + y);
                     float raw_temp = t[pos];
                     if (raw_temp <= 25.f)
-                        raw_temp = 0.f;
-                    else
-                        raw_temp -= camera.min_temp;
+                        raw_temp = camera.min_temp;
+                    raw_temp -= camera.min_temp;
                     unsigned char processed_temp = (255.f / temperatureRange) * raw_temp;
                     thermalImage.setPixel(x, y, {processed_temp, 0, 0});
                 }
