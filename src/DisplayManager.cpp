@@ -132,7 +132,7 @@ void DisplayManager::updateCamera(float elapsed) {
                     {
                         cameraColor = cameraImage.getPixel(x,y);;
                         t = (cameraColor.r+cameraColor.g+cameraColor.b)/3;
-                        red =t+2*smallColor.r;
+                        red =t+smallColor.r;
                         if(red>=254)
                             red=254;
                         cameraImage.setPixel(x,y,sf::Color(red,t,t));
