@@ -140,7 +140,7 @@ void DisplayManager::updateCamera(float elapsed) {
                 }
             }
             end_texture.update(cameraImage);
-            modeText.setString("Timer:" +std::to_string(clock.restart().asMilliseconds()));
+            modeText.setString("Timer:" +std::to_string(clock.restart().asMilliseconds()) + " MAX:" + std::to_string(camera.max_temp)+ " MIN:" + std::to_string(camera.min_temp));
         }
     }
     if (camera_timer > 1.f / framerateCamera) {
