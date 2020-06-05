@@ -18,9 +18,13 @@ public:
     void updateCamera(float elapsed);
     void updateInputs(float elapsed);
 
-    ~DisplayManager()=default;
+    ~DisplayManager()
+    {
+        delete [] newPixel;
+    };
 
 private:
+    sf::Uint8* newPixel;
     sf::Clock clock;
     sf::Text modeText;
     sf::Font font;

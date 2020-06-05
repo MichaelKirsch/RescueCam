@@ -23,6 +23,9 @@ DisplayManager::DisplayManager():camera(0x33,ThermalCamera::REFRESH_RATE::HZ_16)
     picture.setSize({(float)m_window.getSize().x,(float)m_window.getSize().y});
     end_texture.loadFromFile("/home/pi/RescueCam/build/data/image.jpg");
     picture.setTexture(&end_texture);
+
+    newPixel =new sf::Uint8[cameraImage.getSize().x*cameraImage.getSize().y*4];
+
 }
 
 void DisplayManager::updateInputs(float elapsed) {
@@ -115,7 +118,9 @@ void DisplayManager::updateCamera(float elapsed) {
             int red=0;
             int t=0;
             float factor=0.f;
+
             for(int x=0;x<cameraImage.getSize().x;x++)
+            {
                 for(int y =0;y<cameraImage.getSize().y;y++)
                 {
                     cameraColor = cameraImage.getPixel(x,y);;
@@ -127,9 +132,14 @@ void DisplayManager::updateCamera(float elapsed) {
                     red =t+smallColor.r;
                     if(red>=254)
                         red= 254;
-                    cameraImage.setPixel(x,y, {(unsigned char)red,(unsigned char)t,(unsigned char)t});
+                    int buffer = ((x*cameraImage.getSize().y)+y)*4;
+
+                    newPixel[buffer] =red;
+                    newPixel[buffer+1]=t;
+                    newPixel[buffer+2]=t;
                 }
-            end_texture.update(cameraImage);
+            }
+            end_texture.update(newPixel);
             modeText.setString("Timer:" +std::to_string(clock.restart().asMilliseconds()));
         }
     }
