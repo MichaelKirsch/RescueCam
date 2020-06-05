@@ -62,11 +62,10 @@ bool ThermalCamera::getFrame() {
         min_temp = 100.f;
         max_temp = -100.f;
 
-        float temp = 0.f;
         int counter =0;
             for(int x = 0; x < 32; x++) {
                 for (int y = 0; y < 24; y++) {
-                    temp = temperatureArray[32 * (23 - y) + x];
+                    float temp = temperatureArray[32 * (23 - y) + x];
 
                     if(temp>max_temp)
                         max_temp = temp;

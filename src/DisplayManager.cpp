@@ -158,7 +158,7 @@ void DisplayManager::updateCamera(float elapsed) {
                     int pos = ((x * 24) + y);
                     float raw_temp = t[pos];
                     if (raw_temp <= 25.f)
-                        raw_temp = 0;
+                        raw_temp = 0.f;
                     else
                         raw_temp -= camera.min_temp;
                     unsigned char processed_temp = (255.f / temperatureRange) * raw_temp;
