@@ -136,8 +136,7 @@ void DisplayManager::updateCamera(float elapsed) {
                     g.setPixel(x,y,sf::Color(red,t,t));
                 }
             }
-            end_texture.create(640,480);
-            end_texture.update(newPixel);
+            end_texture.update(g);
             modeText.setString("Timer:" +std::to_string(clock.restart().asMilliseconds()));
         }
     }
